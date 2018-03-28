@@ -1,0 +1,16 @@
+{
+  "CN": "Kubestack CA",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "CH",
+      "L": "Zurich",
+      "O": "Kubernetes",
+      "OU": "Kubernetes Admin",
+      "ST": "ZH"
+    }
+  ]
+}
