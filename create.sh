@@ -50,7 +50,7 @@ set DOCKER_TLS_VERIFY=1
 set DOCKER_CERT_PATH=%~d0%~p0.docker
 set PATH=%PATH%;%~d0%~p0bin
 set KUBECONFIG=%~d0%~p0.kube\\config
-start firefox\\firefoxportable.exe http://localhost:8001/ui /B
+start firefox\\firefoxportable.exe http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/. /B
 kubectl proxy        
 %EOF%
 		unix2dos ${t}kube/dashboard.bat
