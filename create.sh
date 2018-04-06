@@ -49,7 +49,7 @@ set DOCKER_HOST=tcp://10.1.66.${IP}:2376
 set DOCKER_TLS_VERIFY=1
 set DOCKER_CERT_PATH=%~d0%~p0.docker
 set PATH=%PATH%;%~d0%~p0bin
-set KUBECONFIG=%~d0%~p0.kube\config
+set KUBECONFIG=%~d0%~p0.kube\\config
 start firefox\\firefoxportable.exe http://localhost:8001/ui /B
 kubectl proxy        
 %EOF%
@@ -61,9 +61,9 @@ cd /d %~d0%~p0
 set DOCKER_HOST=tcp://10.1.66.${IP}:2376
 set DOCKER_TLS_VERIFY=1
 set DOCKER_CERT_PATH=%~d0%~p0.docker
-set PATH=%PATH%;%~d0%~p0bin
-set KUBECONFIG=%~d0%~p0.kube\config
-powershell.exe      
+set PATH=%PATH%;%~d0%~p0bin;~d0%~p0git\\bin;%~d0%~p0git\\usr\\bin
+set KUBECONFIG=%~d0%~p0.kube\\config
+start powershell.exe      
 %EOF%
 		unix2dos ${t}kube/dockerps.bat
 	
@@ -74,8 +74,8 @@ set DOCKER_HOST=tcp://10.1.66.${IP}:2376
 set DOCKER_TLS_VERIFY=1
 set DOCKER_CERT_PATH=%~d0%~p0.docker
 set PATH=%PATH%;%~d0%~p0bin
-set KUBECONFIG=%~d0%~p0.kube\config
-start %~d0%~p0git\git-bash.exe   
+set KUBECONFIG=%~d0%~p0.kube\\config
+start %~d0%~p0git\\git-bash.exe   
 %EOF%
 		unix2dos ${t}kube/dockersh.bat	
 	
