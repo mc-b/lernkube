@@ -63,7 +63,7 @@ set DOCKER_TLS_VERIFY=1
 set DOCKER_CERT_PATH=%~d0%~p0.docker
 set PATH=%PATH%;%~d0%~p0bin;~d0%~p0git\\bin;%~d0%~p0git\\usr\\bin
 set KUBECONFIG=%~d0%~p0.kube\\config
-start powershell.exe      
+powershell.exe      
 %EOF%
 		unix2dos ${t}kube/dockerps.bat
 	
