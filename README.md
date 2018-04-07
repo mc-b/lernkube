@@ -160,5 +160,8 @@ Der [YAML Eintrag](https://de.wikipedia.org/wiki/YAML) sieht dabei wie folgt aus
  
 Für weitere Beispiele siehe das github Projekt [devops](https://github.com/mc-b/devops/tree/master/kubernetes).
 
+### Links
 
- 
+* [WLAN Access Point aufsetzen](https://wiki.ubuntuusers.de/WLAN_Router/)
+* [Configuring VirtualBox autostart on Linux](https://geek1011.github.io/linux-tips/configuring-virtualbox-autostart/)
+* [Vagrant Default Network Interface](https://www.vagrantup.com/docs/networking/public_network.html#default-network-interface)

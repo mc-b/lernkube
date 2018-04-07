@@ -26,6 +26,36 @@ function destroy
 }
 
 #
+# Alle VMs stoppen
+#
+function halt
+{
+	for t in ${TEACHERS}
+	do
+		echo "halt VM ${t}kube"
+        if	[ -d ${t}kube ]
+        then
+        	cd ${t}kube && vagrant halt ; cd ..
+        fi
+    done
+}
+
+#
+# Alle VMs starten
+#
+function up
+{
+	for t in ${TEACHERS}
+	do
+		echo "halt VM ${t}kube"
+        if	[ -d ${t}kube ]
+        then
+        	cd ${t}kube && vagrant up ; cd ..
+        fi
+    done
+}
+
+#
 # Zertifikate und SW fuer Zugriff aufbereiten
 #
 function client
@@ -118,6 +148,8 @@ function vm
 
 if	[ $# -eq 0 ]
 then
+	echo "halt - alle VM's stoppen"
+	echo "up - alle VM's starten"
 	echo "destroy - VM's loeschen"
 	echo "vm - VM's neu anlegen" 
 	echo "client - Client SW aufbereiten"
