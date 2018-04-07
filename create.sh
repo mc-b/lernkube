@@ -47,7 +47,7 @@ function up
 {
 	for t in ${TEACHERS}
 	do
-		echo "halt VM ${t}kube"
+		echo "up VM ${t}kube"
         if	[ -d ${t}kube ]
         then
         	cd ${t}kube && vagrant up ; cd ..
