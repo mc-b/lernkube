@@ -95,7 +95,7 @@ Type=notify
 # for containers run by docker
 ExecStart=/usr/bin/dockerd --tlsverify --tlscacert=/etc/docker/ca.pem --tlscert=/etc/docker/server.pem \
 --tlskey=/etc/docker/server-key.pem -H=0.0.0.0:2376 -H fd://
-ExecReload=/bin/kill -s HUP $MAINPID
+ExecReload=/bin/kill -s HUP \$MAINPID
 LimitNOFILE=1048576
 # Having non-zero Limit*s causes performance problems due to accounting overhead
 # in the kernel. We recommend using cgroups to do container-local accounting.
@@ -129,14 +129,14 @@ WantedBy=multi-user.target
 
     sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address ${VM_IPPREFIX}.${IP}
 
-    mkdir -p $HOME/.kube
-    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    mkdir -p \${HOME}/.kube
+    sudo cp -i /etc/kubernetes/admin.conf \${HOME}/.kube/config
+    sudo chown \$(id -u):\$(id -g) \${HOME}/.kube/config
 
     # this for loop waits until kubectl can access the api server that kubeadm has created
     for i in {1..150}; do # timeout for 5 minutes
        ./kubectl get po &> /dev/null
-       if [ $? -ne 1 ]; then
+       if [ \$? -ne 1 ]; then
           break
       fi
       sleep 2
@@ -148,10 +148,10 @@ WantedBy=multi-user.target
     kubectl taint nodes --all node-role.kubernetes.io/master-
 
     # Vagrant User Zugriff auf Cluster erlauben
-    cp -rp $HOME/.kube /home/vagrant/
+    cp -rp \${HOME}/.kube /home/vagrant/
     chown -R vagrant:vagrant /home/vagrant/.kube
     # Externer Zugriff
-    cp -rp $HOME/.kube /vagrant/
+    cp -rp \${HOME}/.kube /vagrant/
 
     # Install nginx ingress
     kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/namespace.yaml
