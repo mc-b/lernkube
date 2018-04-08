@@ -3,7 +3,7 @@
 #	Einstellungen
 
 # VMs Prefix ohne "kube"
-export VMS="xx1"
+export VMS="xx1 xx2 xx3"
 # Default GW
 export VM_GATEWAY=192.168.178.1
 # Fixe IP - Prefix

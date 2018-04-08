@@ -133,7 +133,7 @@ function vm
         cp -rp template ${t}kube
         export VM_HOSTNAME=${t}kube
         envsubst '${VM_GATEWAY} ${VM_IPPREFIX} ${IP} ${VM_MEMORY} ${VM_HOSTNAME} ${VM_BRIDGE}' <template/Vagrantfile >${t}kube/Vagrantfile
-        #cd ${t}kube && vagrant up ; cd ..	
+        cd ${t}kube && vagrant up ; cd ..	
         let IP=IP+1        
     done
     

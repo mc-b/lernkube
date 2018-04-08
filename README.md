@@ -82,31 +82,26 @@ Es beinhaltet die Funktionen:
 * client - nur Client SW aufbereiten
 * destroy - Aufräumen, die erstellten Instanzen werden gelöscht.
 
-Vor dem Aufruf von `sudo bash create.sh vm` müssen die Anzahl Instanzen und die Anfangs-IP ggf. geändert werden.
+Vor dem Aufruf von `bash create.sh vm` müssen die Anzahl Instanzen und die Anfangs-IP ggf. geändert werden.
 
-`create.sh` editieren und folgende Zeilen anpassen:
+`config.sh` editieren und Umgebungsvariablen passend zu der eigenen Umgebung setzen:
 
-	export TEACHERS="xx1 xx2"
-	export FIP=60
+	# VMs Prefix ohne "kube"
+	export VMS="xx1 xx2 xx3"
+	# Default GW
+	export VM_GATEWAY=192.168.178.1
+	# Fixe IP - Prefix
+	export VM_IPPREFIX=192.168.178
+	# Fixe IP - 1. IP Adresse
+	export FIP=211
+	# Memory pro VM
+	export VM_MEMORY=2048
+	# Interface fuer Bridge
+	# export VM_BRIDGE=', bridge: "enp0s25"'
+	export VM_BRIDGE=""
+
 	
-* TEACHERS = Anfangskürzel der Instanzen, xx1 ergibt Hostname `xx1kube`.
-* FIP = erste IP-Adresse, ab dieser werden die IP-Adressen fix vergeben.
-
-Z.B. ändern in:
-
-	export TEACHERS="ben bem cal ror"
-	export FIP=10	 
-	
-Es werden die Instanzen mit dem Hostnamen `benkube`, `bemkube`, `calkube` und `rorkube` angelegt. Die IP Adressen werden ab 10 vergeben.
-
-Soll ein anderer IP-Adressbereich als `10.1.66.xxx` verwendet werden, ist in den Dateien `create.sh` und `Vagrantfile` zu ändern.
-Das geht am einfachsten durch Suchen und Ersetzen aller Vorkommnisse. In `Vagrantfile` ist auch der Default-Gateway `10.1.66.254` zu ändern.
-
-Anschliessend können die Instanzen wie folgt erstellt werden:
-
-	sudo bash create.sh vm
-	
-Es werden die, oben beschriebenen, Instanzen erstellt und pro Instanz die Client SW als ZIP-Datei aufbereitet.
+Es werden die, Instanzen *xx1kube*, *xx2kube* und *xx3kube* erstellt und pro Instanz die Client SW als ZIP-Datei aufbereitet.
 
 Die ZIP-Dateien sind auf die Client zu kopieren und im HOME-Verzeichnis des User zu entpacken.
 
