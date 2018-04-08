@@ -132,8 +132,8 @@ function vm
         echo "create ${t}kube with ip ${VM_IPPREFIX}.${IP}"
         cp -rp template ${t}kube
         export VM_HOSTNAME=${t}kube
-        envsubst <template/Vagrantfile >${t}kube/Vagrantfile
-        cd ${t}kube && vagrant up ; cd ..	
+        envsubst '${VM_GATEWAY} ${VM_IPPREFIX} ${IP} ${VM_MEMORY} ${VM_HOSTNAME} ${VM_BRIDGE}' <template/Vagrantfile >${t}kube/Vagrantfile
+        #cd ${t}kube && vagrant up ; cd ..	
         let IP=IP+1        
     done
     
