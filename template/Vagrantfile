@@ -14,21 +14,22 @@ Vagrant.configure("2") do |config|
 
   config.vm.box = "ubuntu/xenial64"
   # resize hd, need a plugin vagrant-disksize, see https://github.com/sprotheroe/vagrant-disksize
-  config.disksize.size = '40GB'
+  # config.disksize.size = '40GB'
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.hostname = "vgkube"
-  # config.vm.network "private_network", ip: "192.168.55.100"
-  config.vm.network "public_network", ip:"192.168.178.102"
+  config.vm.hostname = "${VM_HOSTNAME}"
+  config.vm.network "public_network", ip:"${VM_IPPREFIX}.${IP}"
+  # bei mehreren Interfaces bridge setzen
+  # config.vm.network "public_network", ip:"${VM_IPPREFIX}.${IP}", bridge: "enp0s25"
 
-  # default router TBZ.
+  # default router 
   config.vm.provision "shell",
     run: "always",
-   inline: "route add default gw 10.1.66.254 enp0s8"
+   inline: "route add default gw ${VM_GATEWAY} enp0s8 && route del default gw 10.0.2.2 enp0s3"
 
   config.vm.provider "virtualbox" do |vb|
-     vb.memory = "2048"
+     vb.memory = "${VM_MEMORY}"
   end
 
   # Docker Provisioner
@@ -51,7 +52,7 @@ Vagrant.configure("2") do |config|
   "hosts": [
     "127.0.0.1",
     "vgkube",
-    "192.168.178.102"
+    "${VM_IPPREFIX}.${IP}"
   ],
   "key": {
     "algo": "rsa",
@@ -126,7 +127,7 @@ WantedBy=multi-user.target
     sudo apt-get update
     sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni swapspace 
 
-    sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address 192.168.178.102
+    sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address ${VM_IPPREFIX}.${IP}
 
     mkdir -p $HOME/.kube
     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
