@@ -91,7 +91,7 @@ cd /d %~d0%~p0
 set DOCKER_HOST=tcp://${VM_IPPREFIX}.${IP}:2376
 set DOCKER_TLS_VERIFY=1
 set DOCKER_CERT_PATH=%~d0%~p0.docker
-set PATH=%PATH%;%~d0%~p0bin;~d0%~p0git\\bin;%~d0%~p0git\\mingw64\\bin
+set PATH=%~d0%~p0bin;~d0%~p0git\\bin;%~d0%~p0git\\mingw64\\bin;%~d0%~p0git\\usr\\bin;%PATH%
 set KUBECONFIG=%~d0%~p0.kube\\config
 powershell.exe      
 %EOF%
