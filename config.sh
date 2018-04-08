@@ -11,7 +11,7 @@ export VM_IPPREFIX=192.168.178
 # Fixe IP - 1. IP Adresse
 export FIP=211
 # Memory pro VM
-export VM_MEMORY=2048
+export VM_MEMORY=4096
 # Interface fuer Bridge
 # export VM_BRIDGE=', bridge: "enp0s25"'
 export VM_BRIDGE=""
