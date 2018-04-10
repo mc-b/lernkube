@@ -124,7 +124,7 @@ WantedBy=multi-user.target
     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
     sudo echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" >> /etc/apt/sources.list.d/Kubernetes.list
     sudo apt-get update
-    sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni swapspace 
+    sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni 
 
     sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address ${VM_IPPREFIX}.${IP}
 
