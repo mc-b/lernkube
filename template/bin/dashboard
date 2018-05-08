@@ -1,0 +1,7 @@
+#!/bin/bash
+#	
+#	Go into Bash from Container
+#
+
+cd "${BASH_SOURCE%/*}"
+cmd.exe //c dashboard.bat $*
