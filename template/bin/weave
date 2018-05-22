@@ -4,4 +4,4 @@
 #
 
 cd "${BASH_SOURCE%/*}"
-powershell.exe -ep RemoteSigned -file waeveps.ps1 
+powershell.exe -ep RemoteSigned -file weaveps.ps1 
