@@ -168,5 +168,9 @@ WantedBy=multi-user.target
     # Dashboard und User einrichten
     kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
     kubectl create -f /vagrant/addons/dashboard-admin.yaml
+    
+    # Standard Persistent Volume und Claim
+    kubectl create -f /vagrant/data/
+    
 SHELL
 end
