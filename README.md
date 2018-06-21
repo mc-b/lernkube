@@ -7,7 +7,7 @@ Die Scripts in diesem Verzeichnis dienen dazu um Kubernetes Umgebungen mit einer
 
 Mit einer Kubernetes Umgebung können die Lernenden nur mit einem Browser auf eine Vielzahl von Applikationen zugreifen. Die eigentlichen Applikationen laufen pro Lehrer/Lehrende auf einer eigenen Virtuellen Maschine (VM). Das hat den Vorteil, dass bei Problemen einfach die VM frisch erstellt werden kann.
 
-Werden die Applikationen vom Lehrer gleich mit der VM aufbereitet, kann gänzlich auf Client Installationen verzichtet werden. Dazu kann das Vagrantfile im `template` Verzeichnis erweitert werden, z.B. 
+Werden die Applikationen vom Lehrer gleich mit der VM aufbereitet, kann gänzlich auf Client Installationen verzichtet werden. Dazu kann das `Vagrantfile` im `template` Verzeichnis erweitert werden, z.B. 
 
 Original:
 
@@ -31,7 +31,9 @@ Beispiel OS Ticket
 		kubectl create -f https://raw.githubusercontent.com/mc-b/devops/master/kubernetes/osticket/osticket.yaml
 	SHELL
 
-Weitere Beispiele siehe das github Projekt [devops](https://github.com/mc-b/devops/tree/master/kubernetes).
+
+
+Weitere Beispiele oder eine Kubernetes Umgebung pro Notebook, siehe Projekt [devops](https://github.com/mc-b/devops/tree/master/kubernetes#kubernetes-beispiele).
 
 ### Voraussetzungen
 
