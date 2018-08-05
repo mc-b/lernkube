@@ -1,0 +1,22 @@
+# Template fuer Kurs: Microservices
+master:
+  count: 1
+  cpus: 2
+  memory: 10240
+worker:
+  count: 0
+  cpus: 2
+  memory: 2048
+ip:
+  master:   192.168.60.100
+  worker:   192.168.60.111
+k8s:
+  version:  1.9.7-00
+net:
+  private_nic_type: 82545EM
+  network_type: private_network
+addons:
+  # gogs, kanboard, jeninks, Microservices (4x), jupyter (3x), Kubernetes Ingress, docker registry / frontend 
+  ports: [ 32100, 32200, 32300, 32080, 32090, 32180, 32280, 32088, 32188, 32288, 30443, 32500, 32580]
+  # Repositories mit weiteren Scripts, YAML Dateien etc.
+  git: [ "https://github.com/mc-b/devops.git", "https://github.com/mc-b/misegr.git" ]
