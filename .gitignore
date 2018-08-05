@@ -1,1 +1,5 @@
 /???kube/
+/master-*/
+/worker-*/
+/.vagrant/
+/ubuntu-bionic-18.04-cloudimg-console.log

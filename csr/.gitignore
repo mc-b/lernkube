@@ -1,0 +1,5 @@
+/*.pem
+/*.csr
+/.docker/
+/docker-server-csr.json
+/kube-flannel.yaml
