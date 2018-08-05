@@ -17,14 +17,14 @@ Vagrant.configure(2) do |config|
     c = x.fetch('master')
     hostname = "master-%02d" % i
 
-	# Ports laut config.yaml (addons.ports) 
-	for p in $ports
-	  config.vm.network :forwarded_port, guest: p, host: p, auto_correct: true
-	end
-
     config.vm.define hostname do |master|
       c = x.fetch('master')
       master.vm.box= "ubuntu/bionic64"
+      
+	  # Ports laut config.yaml (addons.ports) 
+	  for p in $ports
+		  config.vm.network :forwarded_port, guest: p, host: p, auto_correct: true
+	  end      
       
   	  # resize hd, need a plugin vagrant-disksize, see https://github.com/sprotheroe/vagrant-disksize
   	  config.disksize.size = '40GB'
@@ -82,7 +82,7 @@ Vagrant.configure(2) do |config|
       worker.vm.network x.fetch('net').fetch('network_type'), ip: IPAddr.new(worker_ip.to_i + i - 1, Socket::AF_INET).to_s, nic_type: $private_nic_type
       worker.vm.hostname = hostname
       
-      worker.vm.provision "shell", path: "scripts/k8sbase.sh", args: [ IPAddr.new(_ip.to_i + i - 1, Socket::AF_INET).to_s, x.fetch('k8s').fetch('version') ]
+      worker.vm.provision "shell", path: "scripts/k8sbase.sh", args: [ x.fetch('k8s').fetch('version') ]
     end
   end
 
