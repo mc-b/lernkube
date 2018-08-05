@@ -3,7 +3,9 @@
 # 	Aufbereitung Client Scripts und Programme.
 #
 
-# DashBoard
+sudo apt-get install -q 2 -y dos2unix
+
+# Dashboard
 cat >/vagrant/`hostname`/dashboard.bat <<%EOF%
 REM Startet den Browser mit der Dashboard Startseite und den Proxy 
 cd /d %~d0%~p0
@@ -48,4 +50,4 @@ cd /vagrant
 cp -rp bin /vagrant/`hostname`/
 
 # kubectl CLI
-curl -L https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/windows/amd64/kubectl.exe -o /vagrant/`hostname`/bin/kubectl.exe
+curl -s -L https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/windows/amd64/kubectl.exe -o /vagrant/`hostname`/bin/kubectl.exe

@@ -6,8 +6,8 @@ IP=${1}
 
     set -o xtrace
 
-    wget https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 -O cfssljson
-    wget https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 -O cfssl
+    curl -s -L https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 -o cfssljson
+    curl -s -L https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 -o cfssl
     sudo chmod +x cfssljson cfssl
     sudo mv cfssljson cfssl /usr/local/bin
     cd /vagrant/csr
