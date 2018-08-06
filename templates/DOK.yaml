@@ -8,8 +8,8 @@ worker:
   cpus: 2
   memory: 5120
 ip:
-  master:   192.168.60.100
-  worker:   192.168.60.111
+  master:   192.168.137.100
+  worker:   192.168.137.111
 k8s:
   version:  1.9.7-00
 net:
