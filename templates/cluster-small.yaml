@@ -1,0 +1,22 @@
+master:
+  count: 1
+  cpus: 2
+  memory: 2048
+worker:
+  count: 1
+  cpus: 2
+  memory: 2048
+ip:
+  master:   192.168.178.200
+  worker:   192.168.178.201
+k8s:
+  version:  1.9.7-00
+net:
+  private_nic_type: 82545EM
+  network_type: public_network
+  default_router: "route add default gw 192.168.178.1 enp0s8 && route del default gw 10.0.2.2 enp0s3"
+addons:
+  # mit Public IP keine Portweiterleitung 
+  ports: [ ]
+  # Repositories mit weiteren Scripts, YAML Dateien etc.
+  git: [ "https://github.com/mc-b/devops.git", "https://github.com/mc-b/misegr.git", "https://github.com/mc-b/dok.git" ]

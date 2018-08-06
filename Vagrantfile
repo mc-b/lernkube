@@ -10,6 +10,9 @@ $private_nic_type = x.fetch('net').fetch('private_nic_type')
 
 Vagrant.configure(2) do |config|
 
+   # Ubuntu 16.04 - Ubuntu 18.x gibt Probleme mit dind.
+   config.vm.box = "ubuntu/xenial64"
+
    # resize hd, need a plugin vagrant-disksize, see https://github.com/sprotheroe/vagrant-disksize
    config.disksize.size = '40GB'
    
@@ -28,7 +31,6 @@ Vagrant.configure(2) do |config|
 
     config.vm.define hostname do |master|
       c = x.fetch('master')
-      master.vm.box= "ubuntu/bionic64"
       
       # Virtualbox Feintuning
       master.vm.provider :virtualbox do |v|
@@ -67,7 +69,6 @@ Vagrant.configure(2) do |config|
     c = x.fetch('worker')
     hostname = "worker-%02d" % i
     config.vm.define hostname do |worker|
-      worker.vm.box   = "ubuntu/bionic64"
            
       # Virtualbox Feintuning
       worker.vm.provider "virtualbox" do |v|
