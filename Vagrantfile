@@ -32,12 +32,18 @@ Vagrant.configure(2) do |config|
       
       # Virtualbox Feintuning
       master.vm.provider :virtualbox do |v|
+        # v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
         v.cpus = c.fetch('cpus')
         v.memory = c.fetch('memory')
         v.name = hostname
       end
       master.vm.network x.fetch('net').fetch('network_type'), ip: IPAddr.new(_ip.to_i + i - 1, Socket::AF_INET).to_s, nic_type: $private_nic_type
       master.vm.hostname = hostname
+      
+  	  # default router 
+  	  config.vm.provision "shell",
+    	run: "always",
+   		path: "scripts/defaultrouter.sh", args: x.fetch('net').fetch('default_router')      
       
 	  # Ports laut config.yaml (addons.ports) 
 	  for p in x.fetch('addons').fetch('ports')
