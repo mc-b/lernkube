@@ -1,12 +1,12 @@
-# Kleine Cluster Umgebung hinter der Fritz.box mit fixen IP-Adressen und Default-GW
+# Cluster Umgebung mit einem Master und zwei Worker Nodes hinter der Fritz.box mit fixen IP-Adressen und Default-GW
 master:
   count: 1
   cpus: 2
-  memory: 2048
+  memory: 5120
 worker:
-  count: 1
+  count: 2
   cpus: 2
-  memory: 2048
+  memory: 4096
 ip:
   master:   192.168.178.200
   worker:   192.168.178.201
