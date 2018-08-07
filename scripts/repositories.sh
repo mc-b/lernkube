@@ -6,7 +6,7 @@ cd /vagrant/`hostname`
 	
 for	g in $*
 do
-	echo "git clone ${g}"
+	echo "git clone --depth=1 ${g}"
 	git clone -q ${g}
 	dir=`basename ${g##/} .git`
 	
