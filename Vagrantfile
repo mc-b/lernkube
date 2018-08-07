@@ -23,6 +23,28 @@ Vagrant.configure(2) do |config|
    config.vm.provision "docker" do |d|
    end  	   
 
+  # Worker Node(s)
+  worker_ip = IPAddr.new(x.fetch('ip').fetch('worker'))
+  (1..x.fetch('worker').fetch('count')).each do |i|
+    c = x.fetch('worker')
+    hostname = "worker-%02d" % i
+    config.vm.define hostname do |worker|
+           
+      # Virtualbox Feintuning
+      worker.vm.provider "virtualbox" do |v|
+        v.cpus = c.fetch('cpus')
+        v.memory = c.fetch('memory')
+        v.name = hostname
+      end
+      worker.vm.network x.fetch('net').fetch('network_type'), ip: IPAddr.new(worker_ip.to_i + i - 1, Socket::AF_INET).to_s, nic_type: $private_nic_type
+      worker.vm.hostname = hostname
+      
+      # Installation
+      worker.vm.provision "shell", path: "scripts/k8sbase.sh", args: [ x.fetch('k8s').fetch('version') ]
+      worker.vm.provision "shell", path: "scripts/sshworker.sh"
+    end
+  end
+  
 	# Master Node(s)
   _ip = IPAddr.new(x.fetch('ip').fetch('master'))
   (1..x.fetch('master').fetch('count')).each do |i|
@@ -59,29 +81,9 @@ Vagrant.configure(2) do |config|
       master.vm.provision "shell", path: "scripts/k8saddons.sh"
       master.vm.provision "shell", path: "scripts/repositories.sh", args: x.fetch('addons').fetch('git')
       master.vm.provision "shell", path: "scripts/client.sh"
+      master.vm.provision "shell", path: "scripts/sshmaster.sh"
     
    end
   end
-
-  # Worker Node(s)
-  worker_ip = IPAddr.new(x.fetch('ip').fetch('worker'))
-  (1..x.fetch('worker').fetch('count')).each do |i|
-    c = x.fetch('worker')
-    hostname = "worker-%02d" % i
-    config.vm.define hostname do |worker|
-           
-      # Virtualbox Feintuning
-      worker.vm.provider "virtualbox" do |v|
-        v.cpus = c.fetch('cpus')
-        v.memory = c.fetch('memory')
-        v.name = hostname
-      end
-      worker.vm.network x.fetch('net').fetch('network_type'), ip: IPAddr.new(worker_ip.to_i + i - 1, Socket::AF_INET).to_s, nic_type: $private_nic_type
-      worker.vm.hostname = hostname
-      
-      # Installation
-      worker.vm.provision "shell", path: "scripts/k8sbase.sh", args: [ x.fetch('k8s').fetch('version') ]
-    end
-  end
-
+  
 end
