@@ -18,14 +18,19 @@ Vagrant.configure(2) do |config|
    
    # Gemeinsames Datenverzeichnis fuer Kubernetes Master und workers
    config.vm.synced_folder "data", "/data"
+  
+   # default router 
+   config.vm.provision "shell",
+	run: "always",
+	path: "scripts/defaultrouter.sh", args: x.fetch('net').fetch('default_router')     
     	
    # Docker Provisioner
    config.vm.provision "docker" do |d|
    end  	   
 
-  # Worker Node(s)
-  worker_ip = IPAddr.new(x.fetch('ip').fetch('worker'))
-  (1..x.fetch('worker').fetch('count')).each do |i|
+   # Worker Node(s)
+   worker_ip = IPAddr.new(x.fetch('ip').fetch('worker'))
+   (1..x.fetch('worker').fetch('count')).each do |i|
     c = x.fetch('worker')
     hostname = "worker-%02d" % i
     config.vm.define hostname do |worker|
@@ -43,11 +48,11 @@ Vagrant.configure(2) do |config|
       worker.vm.provision "shell", path: "scripts/k8sbase.sh", args: [ x.fetch('k8s').fetch('version') ]
       worker.vm.provision "shell", path: "scripts/sshworker.sh"
     end
-  end
+   end
   
-	# Master Node(s)
-  _ip = IPAddr.new(x.fetch('ip').fetch('master'))
-  (1..x.fetch('master').fetch('count')).each do |i|
+   # Master Node(s)
+   _ip = IPAddr.new(x.fetch('ip').fetch('master'))
+   (1..x.fetch('master').fetch('count')).each do |i|
     c = x.fetch('master')
     hostname = "master-%02d" % i
 
@@ -63,11 +68,6 @@ Vagrant.configure(2) do |config|
       end
       master.vm.network x.fetch('net').fetch('network_type'), ip: IPAddr.new(_ip.to_i + i - 1, Socket::AF_INET).to_s, nic_type: $private_nic_type
       master.vm.hostname = hostname
-      
-  	  # default router 
-  	  config.vm.provision "shell",
-    	run: "always",
-   		path: "scripts/defaultrouter.sh", args: x.fetch('net').fetch('default_router')      
       
 	  # Ports laut config.yaml (addons.ports) 
 	  for p in x.fetch('addons').fetch('ports')
