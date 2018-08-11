@@ -34,16 +34,27 @@ unix2dos /vagrant/`hostname`/dockerps.bat
 
 # dockersh.bat	
 cat >/vagrant/`hostname`/dockersh.bat <<%EOF%
-REM Setzt die Docker Umgebungsvariablen und startet PowerShell 
+REM Setzt die Docker Umgebungsvariablen und startet Git/Bash 
 cd /d %~d0%~p0
 set DOCKER_HOST=tcp://$(hostname -I | cut -d ' ' -f 2):2376
 set DOCKER_TLS_VERIFY=1
 set DOCKER_CERT_PATH=%~d0%~p0.docker
 set PATH=%PATH%;%~d0%~p0bin
 set KUBECONFIG=%~d0%~p0.kube\\config
-start git-bash.exe   
+start bash.exe   
 %EOF%
 unix2dos /vagrant/`hostname`/dockersh.bat	
+
+# dockerenv	
+cat >/vagrant/`hostname`/dockerenv <<%EOF%
+#!/bin/bash
+# Setzt die Docker Umgebungsvariablen, Aufruf mittels . ./dockerenv 
+export DOCKER_HOST=tcp://$(hostname -I | cut -d ' ' -f 2):2376
+export DOCKER_TLS_VERIFY=1
+export DOCKER_CERT_PATH=\$(pwd)/.docker
+export PATH=\$PATH:\$(pwd)/bin
+export KUBECONFIG=\$(pwd)/.kube/config
+%EOF%
 
 # Hilfsscripts	
 cd /vagrant
