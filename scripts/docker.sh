@@ -17,8 +17,8 @@ IP=${1}
   "CN": "*.kubestack.io",
   "hosts": [
     "127.0.0.1",
-    "vgkube",
-    "${IP}"
+    "$(hostname)",
+    "$(hostname -I | cut -d ' ' -f 2)"
   ],
   "key": {
     "algo": "rsa",
