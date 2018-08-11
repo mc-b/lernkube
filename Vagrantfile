@@ -6,7 +6,6 @@ require 'yaml'
 
 x = YAML.load_file('config.yaml')
 puts "Config: #{x.inspect}\n\n"
-$private_nic_type = x.fetch('net').fetch('private_nic_type')
 
 Vagrant.configure(2) do |config|
 
@@ -41,12 +40,17 @@ Vagrant.configure(2) do |config|
         v.memory = c.fetch('memory')
         v.name = hostname
       end
-      worker.vm.network x.fetch('net').fetch('network_type'), ip: IPAddr.new(worker_ip.to_i + i - 1, Socket::AF_INET).to_s, nic_type: $private_nic_type
+      if x["use_dhcp"] == true
+  		worker.vm.network "public_network", use_dhcp_assigned_default_route: true
+      else
+        worker.vm.network x.fetch('net').fetch('network_type'), ip: IPAddr.new(worker_ip.to_i + i - 1, Socket::AF_INET).to_s
+      end
       worker.vm.hostname = hostname
       
       # Installation
       worker.vm.provision "shell", path: "scripts/k8sbase.sh", args: [ x.fetch('k8s').fetch('version') ]
       worker.vm.provision "shell", path: "scripts/sshworker.sh"
+      worker.vm.provision "shell", path: "scripts/cleanup.sh"
     end
    end
   
@@ -61,12 +65,15 @@ Vagrant.configure(2) do |config|
       
       # Virtualbox Feintuning
       master.vm.provider :virtualbox do |v|
-        # v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
         v.cpus = c.fetch('cpus')
         v.memory = c.fetch('memory')
         v.name = hostname
       end
-      master.vm.network x.fetch('net').fetch('network_type'), ip: IPAddr.new(_ip.to_i + i - 1, Socket::AF_INET).to_s, nic_type: $private_nic_type
+      if x["use_dhcp"] == true
+        master.vm.network "public_network", use_dhcp_assigned_default_route: true
+      else
+      	master.vm.network x.fetch('net').fetch('network_type'), ip: IPAddr.new(_ip.to_i + i - 1, Socket::AF_INET).to_s
+      end
       master.vm.hostname = hostname
       
 	  # Ports laut config.yaml (addons.ports) 
@@ -82,6 +89,7 @@ Vagrant.configure(2) do |config|
       master.vm.provision "shell", path: "scripts/repositories.sh", args: x.fetch('addons').fetch('git')
       master.vm.provision "shell", path: "scripts/client.sh"
       master.vm.provision "shell", path: "scripts/sshmaster.sh"
+      master.vm.provision "shell", path: "scripts/cleanup.sh"
     
    end
   end

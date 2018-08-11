@@ -7,13 +7,14 @@ worker:
   count: 2
   cpus: 2
   memory: 4096
+k8s:
+  version:  1.9.7-00  
+use_dhcp: false  
 ip:
   master:   192.168.178.200
   worker:   192.168.178.201
-k8s:
-  version:  1.9.7-00
+
 net:
-  private_nic_type: 82545EM
   network_type: public_network
   default_router: "route add default gw 192.168.178.1 enp0s8 && route del default gw 10.0.2.2 enp0s3"
 addons:

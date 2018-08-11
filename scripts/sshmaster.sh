@@ -29,3 +29,8 @@ for node in ${NODES}
 do
 	su vagrant -c "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${node} sudo ${join}"
 done
+
+echo "===================================================================="
+echo "VM: $(hostname), Cluster-IP: $(hostname -I | cut -d ' ' -f 2)"
+kubectl get nodes
+echo "===================================================================="
