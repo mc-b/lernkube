@@ -2,8 +2,6 @@
 #
 # 	Installiert Docker bzw. Feintuning
 
-IP=${1}
-
     set -o xtrace
 
     curl -s -L https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 -o cfssljson

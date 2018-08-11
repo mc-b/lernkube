@@ -82,7 +82,7 @@ Vagrant.configure(2) do |config|
 	  end       
       
       # Installation
-      master.vm.provision "shell", path: "scripts/docker.sh", args: [ IPAddr.new(_ip.to_i + i - 1, Socket::AF_INET).to_s ]
+      master.vm.provision "shell", path: "scripts/docker.sh"
       master.vm.provision "shell", path: "scripts/k8sbase.sh", args: [ x.fetch('k8s').fetch('version') ]
       master.vm.provision "shell", path: "scripts/k8smaster.sh"
       master.vm.provision "shell", path: "scripts/k8saddons.sh"
