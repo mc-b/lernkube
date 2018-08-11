@@ -3,6 +3,10 @@
 #	ssh fuer Zugriff Master auf Worker konfigurieren
 #
 
+echo "===================================================================="
+echo "VM: $(hostname), Cluster-IP: $(hostname -I | cut -d ' ' -f 2)"
+echo "===================================================================="
+
 NODES=$(find /vagrant/.vagrant -name private_key | grep worker | cut -d/ -f 5)
 
 # keine Worker Nodes vorhanden - Exit!
@@ -29,7 +33,3 @@ for node in ${NODES}
 do
 	su vagrant -c "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${node} sudo ${join}"
 done
-
-echo "===================================================================="
-echo "VM: $(hostname), Cluster-IP: $(hostname -I | cut -d ' ' -f 2)"
-echo "===================================================================="
