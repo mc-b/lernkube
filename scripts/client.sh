@@ -52,7 +52,7 @@ cat >/vagrant/`hostname`/dockerenv <<%EOF%
 export DOCKER_HOST=tcp://$(hostname -I | cut -d ' ' -f 2):2376
 export DOCKER_TLS_VERIFY=1
 export DOCKER_CERT_PATH=\$(pwd)/.docker
-export PATH=\$PATH:\$(pwd)/bin
+export PATH=\$PATH:\$(pwd)/bin:\$(pwd)
 export KUBECONFIG=\$(pwd)/.kube/config
 %EOF%
 
