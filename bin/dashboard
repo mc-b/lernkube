@@ -3,5 +3,14 @@
 #	Go into Bash from Container
 #
 
-cd "${BASH_SOURCE%/*}"
-cmd.exe //c dashboard.bat $*
+
+# Windows Git/Bash
+if [ "$OS" == "Windows_NT" ]
+then
+	cd "${BASH_SOURCE%/*}"
+	cmd.exe //c dashboard.bat $*
+# Linux
+else
+	kubectl proxy &
+	x-www-browser http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/.
+fi	

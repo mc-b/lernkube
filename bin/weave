@@ -3,5 +3,13 @@
 #	Open Wave Scope Web UI
 #
 
-cd "${BASH_SOURCE%/*}"
-powershell.exe -ep RemoteSigned -file weaveps.ps1 
+# Windows Git/Bash
+if [ "$OS" == "Windows_NT" ]
+then
+	cd "${BASH_SOURCE%/*}"
+	powershell.exe -ep RemoteSigned -file weaveps.ps1
+# Linux
+else
+	kubectl port-forward -n weave $(kubectl get -n weave pod --selector=weave-scope-component=app -o jsonpath='{.items..metadata.name}') 4040 &
+	x-www-browser http://localhost:4040
+fi		 
