@@ -2,7 +2,7 @@
 #
 # 	Aufbereitung Client Scripts und Programme.
 #
-sudo apt-get install -q 2 -y dos2unix
+sudo apt-get install -q 2 -y dos2unix bsdtar
 
 # wenn nur 1 Master Scripts in /vagrant ablegen
 if	[ $1 -eq 1 ]
@@ -76,3 +76,11 @@ export KUBECONFIG=\$(pwd)/.kube/config
 
 # kubectl CLI
 curl -s -L https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/windows/amd64/kubectl.exe -o $OUT/bin/kubectl.exe
+# docker CLI
+( cd $OUT/bin/ && curl -s -L https://download.docker.com/win/static/stable/x86_64/docker-17.09.0-ce.zip | bsdtar xvf - && mv docker/docker.exe . && rm -rf docker)
+# helm CLI
+( cd $OUT/bin/ && curl -s -L https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-rc.3-windows-amd64.zip | bsdtar xvf - && mv windows-amd64/helm.exe . && rm -rf windows-amd64)
+
+
+
+
