@@ -3,5 +3,12 @@
 #	Go into Bash from Container
 #
 
-cd "${BASH_SOURCE%/*}"
-cmd.exe //c runbash.bat $*
+# Windows Git/Bash
+if [ "$OS" == "Windows_NT" ]
+then
+	cd "${BASH_SOURCE%/*}"
+	cmd.exe //c runbash.bat $*
+# Linux
+else
+	kubectl exec -it $(kubectl get pod --selector=app=$1 -o jsonpath='{.items..metadata.name}') -- bash
+fi
