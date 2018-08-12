@@ -59,7 +59,7 @@ set DOCKER_TLS_VERIFY=1
 set DOCKER_CERT_PATH=%~d0%~p0.docker
 set PATH=%PATH%;%~d0%~p0bin
 set KUBECONFIG=%~d0%~p0.kube\\config
-start bash.exe   
+start git-bash.exe   
 %EOF%
 unix2dos $OUT/dockersh.bat	
 
