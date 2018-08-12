@@ -3,5 +3,13 @@
 #	Open Browser for Service
 #
 
-cd "${BASH_SOURCE%/*}"
-powershell.exe -ep RemoteSigned -file serviceps.ps1 $*
+# Windows Git/Bash
+if [ "$OS" == "Windows_NT" ]
+then
+	cd "${BASH_SOURCE%/*}"
+	powershell.exe -ep RemoteSigned -file serviceps.ps1 $*
+# Linux
+else
+	x-www-browser $(kubectl config view -o=jsonpath='{ .clusters[0].cluster.server }' | sed -e 's/https:/http:/' -e "s/6443/$(kubectl get svc apache -o=jsonpath='{ .spec.ports[0].nodePort }')/")
+fi
+	
