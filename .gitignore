@@ -5,3 +5,12 @@
 /ubuntu-bionic-18.04-cloudimg-console.log
 /ubuntu-xenial-16.04-cloudimg-console.log
 /ssh.config
+/.docker/
+/.kube/
+/dashboard.bat
+/dockerenv
+/dockerps.bat
+/dockersh.bat
+/dok/
+/devops/
+/misegr/

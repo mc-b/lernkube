@@ -27,8 +27,6 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 # Vagrant User Zugriff auf Cluster erlauben
 cp -rp $HOME/.kube /home/vagrant/
 chown -R vagrant:vagrant /home/vagrant/.kube
-# Externer Zugriff
-cp -rp $HOME/.kube /vagrant/`hostname`/
 
 # Install nginx ingress 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/namespace.yaml

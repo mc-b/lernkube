@@ -2,13 +2,23 @@
 #
 #	Abhandlung Git Repositories
 #
-cd /vagrant/`hostname`
-	
+
+cd /vagrant
+		
 for	g in $*
 do
-	echo "git clone --depth=1 ${g}"
-	git clone -q ${g}
 	dir=`basename ${g##/} .git`
+	
+	# nur clonen wenn nicht vorhanden
+	if	[ ! -d ${dir} ]
+	then
+		echo "git clone --depth=1 ${g}"
+		git clone -q ${g}
+	else
+		echo "git pull ${g}"
+		( cd ${dir} && git pull )
+	fi
+
 	
 	# Repository spezifisches Script laufen lassen
 	if	[ -f ${dir}/scripts/install.sh ]

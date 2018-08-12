@@ -49,11 +49,6 @@
     chmod 0700 /home/vagrant/.docker
     chown vagrant:vagrant /home/vagrant/.docker
     
-	# Externer Zugriff
-    sudo rm -rf /vagrant/`hostname`/
-    sudo mkdir -p /vagrant/`hostname`/
-    sudo cp -rp /home/vagrant/.docker /vagrant/`hostname`/
-    
     sudo cat > /etc/systemd/system/docker.service <<%EOF%
 [Service]
 Type=notify

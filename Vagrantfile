@@ -5,7 +5,7 @@ require 'ipaddr'
 require 'yaml'
 
 x = YAML.load_file('config.yaml')
-puts "Config: #{x.inspect}\n\n"
+# puts "Config: #{x.inspect}\n\n"
 
 Vagrant.configure(2) do |config|
 
@@ -87,7 +87,7 @@ Vagrant.configure(2) do |config|
       master.vm.provision "shell", path: "scripts/k8smaster.sh"
       master.vm.provision "shell", path: "scripts/k8saddons.sh"
       master.vm.provision "shell", path: "scripts/repositories.sh", args: x.fetch('addons').fetch('git')
-      master.vm.provision "shell", path: "scripts/client.sh"
+      master.vm.provision "shell", path: "scripts/client.sh", args: [ x.fetch('master').fetch('count') ]
       master.vm.provision "shell", path: "scripts/sshmaster.sh"
       master.vm.provision "shell", path: "scripts/cleanup.sh"
     
