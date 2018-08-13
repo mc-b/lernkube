@@ -62,8 +62,8 @@ kubectl proxy
 %EOF%
 unix2dos $OUT/dashboard.bat
 
-# dockerps.bat	
-cat >$OUT/dockerps.bat <<%EOF%
+# kubeps.bat	
+cat >$OUT/kubeps.bat <<%EOF%
 @ECHO OFF
 REM Setzt die Docker Umgebungsvariablen und startet PowerShell 
 cd /d %~d0%~p0
@@ -75,10 +75,10 @@ set KUBECONFIG=%~d0%~p0.kube\\config
 $(info)  
 powershell.exe    
 %EOF%
-unix2dos $OUT/dockerps.bat
+unix2dos $OUT/kubeps.bat
 
-# dockersh.bat	
-cat >$OUT/dockersh.bat <<%EOF%
+# kubesh.bat	
+cat >$OUT/kubesh.bat <<%EOF%
 @ECHO OFF
 REM Setzt die Docker Umgebungsvariablen und startet Git/Bash 
 cd /d %~d0%~p0
@@ -90,7 +90,7 @@ set KUBECONFIG=%~d0%~p0.kube\\config
 $(info)  
 start git-bash.exe   
 %EOF%
-unix2dos $OUT/dockersh.bat	
+unix2dos $OUT/kubesh.bat	
 
 # kubeenv	
 cat >$OUT/kubeenv <<%EOF%
