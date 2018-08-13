@@ -35,9 +35,11 @@ Startet die Git/Bash Console und Erstellt die Kubernetes VM mittels:
 
 Die VM kann mittels `vagrant suspend` angehalten, mittels `vagrant up` wieder gestartet und mittels `vagrant destroy -f` gelöscht werden.
 
-Das Dashboard, von Kubernetes, kann mittels der Datei `dashboard.bat` angezeigt werden. 
+Das Dashboard, von Kubernetes, kann mittels der Datei `dashboard.bat` angezeigt werden. Der Logindialog kann mit `Skip` übersprungen werden.
 
 Nach dem Anklicken von `kubeps.bat` (PowerShell) oder `kubesh.bat` (Git/Bash) können neue Applikationen und Services mittels `kubectl create -f YAML-Datei` erzeugt und deren Oberfläche mittels `startsvc <service>` angewählt werden. Siehe auch Beispiele oben.
+
+[Weave Scope](https://www.weave.works/) ist ein Werkzeug zur grafischen Visualisierung Ihrer Container, Pods, Dienste usw. Die Weave Scope Oberfläche, kann in der Shell, mittels `weave` gestartet werden.
 
 ### Installation
 
