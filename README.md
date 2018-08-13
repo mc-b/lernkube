@@ -50,7 +50,7 @@ Alle Installationen basieren auf Änderungen in der `config.yaml` Datei in diese
 * [Lernumgebung auf lokalem PC](#quick-start)
 * [Mehrere VM's](#mehrere-vm's)
 * [Cluster](#cluster)
-* [Dedicated-Server für VM's einrichten](#Dedicated-Server)
+* [Dedicated-Server für VM's einrichten](#dedicated-server)
 
 **Der Ablauf der Installation lässt sich wie folgt Zusammenfassen:**
 * Installation VM mit Linux/Ubuntu 16.x
