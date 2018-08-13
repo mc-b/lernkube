@@ -67,6 +67,8 @@ Für Details siehe [Vagrantfile](Vagrantfile) und Verzeichnis [scripts](scripts/
 
 **Alternativ** kann für die Lernenden auch [Docker for Windows/Mac](https://www.docker.com/products/docker-desktop) oder [Minikube](https://github.com/kubernetes/minikube) verwendet werden. Diese Umgebungen sind aber nicht Cluster fähig und erfordern [Feintuning](docker4windows/).
 
+**Bei Problemen** bei der Installation siehe [FAQ](FAQ.md).
+
 #### Mehrere VMs
 
 Es wird pro Lehrende eine VM zur selbstständigen Verfügung eingerichtet. Die VM's werden  Zentral in einem Rechenzentrum betrieben werden, die Lehrenden greifen mittels Windows PC auf die einzelnen VM zu.
