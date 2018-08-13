@@ -3,161 +3,160 @@ lernkube - Kubernetes Umgebung
 
 ![](images/lernkube.png)
 
-Die Scripts in diesem Verzeichnis dienen dazu um Kubernetes Umgebungen mit einer Instanz pro Lehrer/Lernende aufzubauen.
+Das Projekt `lernkube` erlaubt es flexible Lernumgebungen für Lehrende und Lernende aufzubauen. Dazu werden Virtuelle Maschinen (VM) mit einer Kubernetes Umgebung verwendet. 
 
-Mit einer Kubernetes Umgebung können die Lernenden nur mit einem Browser auf eine Vielzahl von Applikationen zugreifen. Die eigentlichen Applikationen laufen pro Lehrer/Lehrende auf einer eigenen Virtuellen Maschine (VM). Das hat den Vorteil, dass bei Problemen einfach die VM frisch erstellt werden kann.
+*Kubernetes hat im letzten Jahr eine massive Verbreitung erfahren und wird von der [Cloud Native Computing Foundation (CNCF)](https://www.cncf.io/) unterstützt. Die CNCF dient als herstellerneutrales Zuhause für viele der am schnellsten wachsenden Projekte auf GitHub, einschließlich Kubernetes, Prometheus und Envoy, und fördert die Zusammenarbeit zwischen den führenden Entwicklern, Endbenutzern und Anbietern der Branche.*
 
-Werden die Applikationen vom Lehrer gleich mit der VM aufbereitet, kann gänzlich auf Client Installationen verzichtet werden. Dazu kann das `Vagrantfile` im `template` Verzeichnis erweitert werden, z.B. 
+Mit einer Kubernetes Umgebung können die Lernenden, nur mit einem Browser, auf eine Vielzahl von Applikationen zugreifen. Dazu greifen sie auf sogenannte [YAML](https://de.wikipedia.org/wiki/YAML)-Dateien zu, welche zum Start der Applikationen dienen. Die YAML Dateien referenzieren wieder [Docker Images](https://hub.docker.com/), welche die eigentlichen Applikationen beinhalten.  
 
-Original:
+Neben der Lernumgebung stellt `lernkube`, in weiteren Projekten ganze Umgebungen zur Verfügung, z.B.:
+* [MySQL Umgebung mit Bereitstellung von Testdaten und Graphischer Oberfläche](https://github.com/mc-b/dok/tree/master/mysql)
+* [Interaktives Lernen mit Jupyter/BeakerX](https://github.com/mc-b/dok/tree/master/jupyter) 
+* [Beispiele zum Internet der Dinge](https://github.com/mc-b/dok/tree/master/iot)
+* [OS Ticket - Helpdesk Applikation](https://github.com/mc-b/dok/tree/master/osticket)
+* [Beispiele zu Big Data](https://github.com/mc-b/dok/tree/master/bigdata)
+* [DevOps Umgebung für Planung, Continuous Integration und Delivery](https://github.com/mc-b/dok/tree/master/devops)
+* [Microservice Beispiele mit REST, Messaging, ESI (Edge Side Include)](https://github.com/mc-b/misegr)
+* [Business Process Model and Notation (BPMN, deutsch Geschäftsprozessmodell und -notation)](https://github.com/mc-b/misegr/tree/master/bpmn)
 
-	Vagrant.configure("2") do |config|
+### Quick Start
+
+Dazu wird ein normaler PC mit min. 8 GB RAM und 40 GB freier HD benötigt. Die Installation geht von einem Windows 10 PC aus. Auf Linux/Mac entfällt Git/Bash bzw. wird nur Git benötigt. Statt `kubeXX.bat` kann `. ./kubeenv` verwendet werden. 
+
+Installiert [Git/Bash](https://git-scm.com/downloads), [Vagrant](https://www.vagrantup.com/) und [VirtualBox](https://www.virtualbox.org/).
+
+Startet die Git/Bash Console und Erstellt die Kubernetes VM mittels:
+
+	git clone https://github.com/mc-b/lernkube
+	cd lernkube
+	vagrant up
+	
+Öffnet die Interaktive Lernumgebung mittels [http://localhost:32188](http://localhost:32188), wechselt in das Verzeichnis `work` und wählt ein Notebook (ipynp Dateien) an.
+
+Die VM kann mittels `vagrant suspend` angehalten, mittels `vagrant up` wieder gestartet und mittels `vagrant destroy -f` gelöscht werden.
+
+Das Dashboard, von Kubernetes, kann mittels der Datei `dashboard.bat` angezeigt werden. 
+
+Nach dem Anklicken von `kubeps.bat` (PowerShell) oder `kubesh.bat` (Git/Bash) können neue Applikationen und Services mittels `kubectl create -f YAML-Datei` erzeugt und deren Oberfläche mittels `startsvc <service>` angewählt werden. Siehe auch Beispiele oben.
+
+### Installation
+
+Die Installation kann auf einen Windows, Mac- oder Linux Computer erfolgen. Je nach Installationsart, Standalone, Mehrere VM, Cluster etc. ergeben sich andere Anforderungen.
+
+Deshalb sind die nachfolgenden Beschreibungen als Empfehlungen zu sehen.
+
+Alle Installationen basieren auf Änderungen in der `config.yaml` Datei in diesem Verzeichnis. 
+
+* [Lernumgebung auf lokalem PC](#quick-start)
+* [Mehrere VM's](#mehrere-vm's)
+* [Cluster](#cluster)
+* [Dedicated-Server für VM's einrichten](#Dedicated-Server)
+
+**Der Ablauf der Installation lässt sich wie folgt Zusammenfassen:**
+* Installation VM mit Linux/Ubuntu 16.x
+* Feintuning docker Daemon, Erstellung Server Zertifikat für Remote Zugriff (`.docker`)
+* Installation Kubernetes, nur Programme.
+* Initialisierung Kubernetes Master, Erstellung Server Zertifikat für Remote Zugriff (`.kube/config`)
+* Installation Kubernetes Add-ons wie Dashboard, Weave, Ingress
+* Klonen der Repositories laut Eintrag in `config.yaml -> addons: -> git:` und Ausführen von `scripts/install.sh` pro geklontes Repository
+* Download Client Programme wie `docker.exe`, `kubectl.exe` und Erstellung der Scriptdateien zum Setzen der Umgebungsvariablen (z.B. `DOCKER_HOST`) und Start PowerShell oder Git/Bash
+* Joinen der Worker Nodes
+* Aufräumen u.a. Umount /vagrant Verzeichnis aus Sicherheitsgründen
+
+Für Details siehe [Vagrantfile](Vagrantfile) und Verzeichnis [scripts](scripts/).
+
+**Alternativ** kann für die Lernenden auch [Docker for Windows/Mac](https://www.docker.com/products/docker-desktop) oder [Minikube](https://github.com/kubernetes/minikube) verwendet werden. Diese Umgebungen sind aber nicht Cluster fähig und erfordern [Feintuning](docker4windows/).
+
+#### Mehrere VM's
+
+Es wird pro Lehrende eine VM zur selbstständigen Verfügung eingerichtet. Die VM's werden  Zentral in einem Rechenzentrum betrieben werden, die Lehrenden greifen mittels Windows PC auf die einzelnen VM zu.
+
+**Voraussetzungen**
+
+Genügend GB RAM für alle VM's, z.B. können bei einem 32 GB RAM System ca. 7 VM's à 4 GB RAM eingerichtet werden.
+
+**Konfiguration**
+
+Siehe Datei [multi-master.yaml](templates/multi-master.yaml).
+
+Die wichtigsten Konfigurationen:
+
+	master:
+	  count: 5
 	...
-	    # Dashboard und User einrichten
-	    kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
-	    kubectl create -f /vagrant/addons/dashboard-admin.yaml
-	SHELL
+	use_dhcp: true  
 
-Beispiel OS Ticket
+Es werden 5 VM's erzeugt. Die VM beziehen die IP-Adresse automatisch von einem DHCP-Server.
 
-	Vagrant.configure("2") do |config|
-	...
-	    # Dashboard und User einrichten
-	    kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
-	    kubectl create -f /vagrant/addons/dashboard-admin.yaml
-	    
-	    # OS Ticket
-	    kubectl create -f https://raw.githubusercontent.com/mc-b/devops/master/kubernetes/osticket/mysql.yaml
-		kubectl create -f https://raw.githubusercontent.com/mc-b/devops/master/kubernetes/osticket/osticket.yaml
-	SHELL
+Nach der Installation stehen die Verzeichnisse `master-01` bis `master-05` zur Verfügung. Diese Verzeichnisse sind auf die jeweiligen Client PC zu kopieren. Z.B. Lernender A bekommt `master-01` zugewiesen. Dazu kopiert es das Verzeichnis `master-01` auf seinen PC und startet mittels `kubeps.bat` eine PowerShell und kann dann mittels `kubectl create -f YAML-Datei` weitere Applikationen starten. Analog wie in Quick Start beschrieben. Die Kommunikation lokaler PC mit der VM erfolgt verschlüsselt, die Keys stehen in den Verzeichnissen `.kube` und `.docker`. 
+
+Alternativ können auch fixe IP-Adressen für die VM's verwendet werden. Dazu ist die `config.yaml` wie folgt zu ändern:
+
+	use_dhcp: false
+	ip:	
+      master:   192.168.178.200 
+
+Konfiguration ohne DHCP und unter `ip: -> master:` steht die Erste IP-Adresse ab wo aufgezählt wird.
+
+#### Cluster
+
+Bei einem Cluster wird ein Kubernetes Master und mehrere Worker erzeugt. Diese Umgebung eignet sich zur Demonstration einer Verteilten Umgebung.
+
+**Voraussetzungen**
+
+Genügend GB RAM für alle VM's, z.B. können bei einem 32 GB RAM System ca. 7 VM's à 4 GB RAM eingerichtet werden.
+
+**Konfiguration**
+
+Siehe Datei [cluster-large.yaml](templates/cluster-large.yaml) oder [cluster-small.yaml](templates/cluster-small.yaml).
+
+Die wichtigsten Konfigurationen:
+
+	master:
+	  count: 1
+	  cpus: 2
+	  memory: 5120
+	worker:
+	  count: 2
+
+Es wird ein Master und zwei Worker Nodes erstellt. Der Master und die Worker Nodes werden während der Installation automatisch miteinnander gejoint.
+
+	use_dhcp: false  
+	ip:
+	  master:   192.168.178.200
+	  worker:   192.168.178.201
+	net:
+	  network_type: public_network
+	  default_router: "route add default gw 192.168.178.1 enp0s8 && route del default gw 10.0.2.2 enp0s3"	  
+
+Die IP-Adressen werden fix vergeben. Bei fixer IP-Adressen Vergabe, muss ein "Default Router" gesetzt sein, ebenfalls muss ein "Public Network" verwendet werden. Ansonsten finden sich zwar Master und Worker, können aber nicht miteinnander kommunizieren.
 
 
+#### Dedicated-Server
 
-Weitere Beispiele oder eine Kubernetes Umgebung pro Notebook, siehe Projekt [devops](https://github.com/mc-b/devops/tree/master/kubernetes#kubernetes-beispiele).
+Es wird ein eigenständiger Server mit Linux eingerichtet. Auf diesem wird anschliessend mehrere VM's oder ein Kubernetes Cluster erstellt.
 
-### Voraussetzungen
+**Voraussetzungen**
 
 Einen oder mehrere Standard PC mit ca. 32 GB RAM und 256 GB HD.
 
-Eine freien IP-Bereich z.B. 10.1.66.10 - 10.1.66.40, wo fixe IP-Adressen vergeben werden können.
-
-### Grundinstallation
+**Grundinstallation**
 
 Ubuntu 16.x Server installieren.
 
 Weitere Software als `root` mit dem Script `installvv.sh` installieren.
 
-	sudo bash -x installvv.sh
+	git clone https://github.com/mc-b/lernkube
+	cd lernkube
+	sudo bash -x scripts/installvv.sh
 
-Im Detail sind das u.a.:
+Nach der Grundinstallation kann können [mehrere VM's] oder ein [Cluster](#cluster) auf dem Dedicated-Server eingerichtet werden.
+
+**Verwendete Produkte**
 * [VirtualBox](https://www.virtualbox.org/) - die Virtualisierungs Umgebung
 * [Vagrant](https://www.vagrantup.com/) - Automatisierungs Lösung für VM aus dem Bereich Infrastructure as Code.
 
-### `template` Verzeichnis 
-
-Das `template` Verzeichnis enthält ein `Vagrantfile` um die Kubernetes Instanzen aufzusetzen. 
-
-Das Verzeichnis inkl. dem Stammverzeichnis `lernkube` ist auf den bereitgestellten Server zu kopieren oder einfach via git zu clonen:
-
-	git clone https://github.com/mc-b/lernkube.git
-	
-Und die restliche Client Software aus dem Internet zu laden und bereitzustellen, dass sind:
-
-* [Git Portable](https://git-scm.com/download/win) - entpacken in Verzeichnis `template/git`
-* [Firefox Portable](https://portableapps.com/de/apps/internet/firefox_portable) - entpacken in Verzeichnis `template/firefox`
-* [docker.exe](https://download.docker.com/win/static/stable/x86_64/) - entpacken in Verzeichnis `templates/bin`
-* [kubectl.exe](https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/windows/amd64/kubectl.exe) - abstellen in Verzeichnis `templates/bin`
-
-Das Ergebnis sollte wie folgt aussehen:
-* lernkube/templates/bin/docker.exe
-* lernkube/templates/bin/kubectl.exe
-* lernkube/templates/git/git-bash.exe und weitere Dateien
-* lernkube/templates/firefox/FirefoxPortable.exe und weitere Dateien
-
-
-### Kubernetes Instanzen
-
-Die restlichen Arbeiten übernimmt das Script `create.sh`.
-
-Es beinhaltet die Funktionen:
-* vm - Erstellt die Kubernetes Instanzen und bereitet die Client SW als ZIP-Datei auf. Evtl. vorhandene Instanzen werden vorher gelöscht.
-* client - nur Client SW aufbereiten
-* destroy - Aufräumen, die erstellten Instanzen werden gelöscht.
-
-Vor dem Aufruf von `bash create.sh vm` müssen die Anzahl Instanzen und die Anfangs-IP ggf. geändert werden.
-
-`config.sh` editieren und Umgebungsvariablen passend zu der eigenen Umgebung setzen:
-
-	# VMs Prefix ohne "kube"
-	export VMS="xx1 xx2 xx3"
-	# Default GW
-	export VM_GATEWAY=192.168.178.1
-	# Fixe IP - Prefix
-	export VM_IPPREFIX=192.168.178
-	# Fixe IP - 1. IP Adresse
-	export FIP=211
-	# Memory pro VM
-	export VM_MEMORY=2048
-	# Interface fuer Bridge
-	# export VM_BRIDGE=', bridge: "enp0s25"'
-	export VM_BRIDGE=""
-
-	
-Es werden die, Instanzen *xx1kube*, *xx2kube* und *xx3kube* erstellt und pro Instanz die Client SW als ZIP-Datei aufbereitet.
-
-Die ZIP-Dateien sind auf die Client zu kopieren und im HOME-Verzeichnis des User zu entpacken.
-
-Dabei werden folgende Verzeichnisse und Dateien erstellt:
-* .kube - Zugriff Zertifikate für Kubernetes Instanz
-* .docker - Zugriff Zertifikate für Docker Daemon auf Kubernetes Instanz
-* .ssh - Private Key für den Zugriff auf VM mittels `ssh xxxkube`
-* bin - Kommandlineprogramme wie `kubectl` und `docker` zum Starten und Builden von Images
-* firefox - Firefox Portable um Probleme mit vorinstalliertem MS Internet Explorer zu vermeiden
-* git - Git/Bash Umgebung um Projekte von [http://github.com](http://github.com) zu clonen
-* dashboard.bat - Aufruf des Dashboards um Pod/Container zu starten
-* dockerps.bat - Setzen der Umgebungsvariablen für den Zugriff auf die Kubernetes Instanz und starten Powershell
-* dockersh.bat - dito für Bash Umgebung
-* bin/startsvc.bat - Ermitteln des Ports eines Services und Start Browser.
-
-Werden die ZIP-Dateien woanders als im HOME-Verzeichnis entpackt, ist im HOME-Verzeichnis ein .kube/config Datei mit leerem Inhalt anzulegen. Ansonsten kommt `kubectl` auf einen Fehler.
-
-### Testen
-
-Zum Testen eignet sich die Applikation [FHEM](http://fhem.de), eine kleine Hausautomationssteuerung.
-
-Sie lässt sich via URL oder Port Variante ansprechen.
-
-Die Port Variante wird wie folgt gestartet:
-
-	kubectl create -f https://raw.githubusercontent.com/mc-b/devops/master/kubernetes/iot/fhem-port.yaml
-	startsvc fhem-port
-	
-Und die URL Variante wie folgt:
-
-	kubectl create -f https://raw.githubusercontent.com/mc-b/devops/master/kubernetes/iot/fhem.yaml
-	
-um anschliessend das UI über den URL `https://<ip Instanz>:30443/fhem` anzusprechen.
-
-Es werden zwei Instanzen von [FHEM](http://fhem.de) gestartet. Jede Instanz ist normalerweise über einen von Kubernetes automatisch vergebenen Port ansprechbar. Wird zusätzlich in Ingress Eintrag erstellt, kann ein Service über einen fixen URL erreicht werden.
-
-Der [YAML Eintrag](https://de.wikipedia.org/wiki/YAML) sieht dabei wie folgt aus:
-
-	apiVersion: extensions/v1beta1
-	kind: Ingress
-	metadata:
-	  name: fhem
-	spec:
-	  rules:
-	  - http:
-	      paths:
-	      - path: /fhem
-	        backend:
-	          serviceName: fhem
-	          servicePort: 8083
- 
-Für weitere Beispiele siehe das github Projekt [devops](https://github.com/mc-b/devops/tree/master/kubernetes).
-
-### Links
+**Links**
 
 * [WLAN Access Point aufsetzen](https://wiki.ubuntuusers.de/WLAN_Router/)
 * [Configuring VirtualBox autostart on Linux](https://geek1011.github.io/linux-tips/configuring-virtualbox-autostart/)

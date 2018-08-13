@@ -1,7 +1,0 @@
-#!/bin/bash
-#	
-#	Open Wave Scope Web UI
-#
-
-cd "${BASH_SOURCE%/*}"
-powershell.exe -ep RemoteSigned -file weaveps.ps1 

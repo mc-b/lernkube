@@ -1,7 +1,0 @@
-#!/bin/bash
-#	
-#	Open Browser for Service
-#
-
-cd "${BASH_SOURCE%/*}"
-powershell.exe -ep RemoteSigned -file serviceps.ps1 $*
