@@ -104,6 +104,9 @@ export KUBECONFIG=\$(pwd)/.kube/config
 $(info)  
 %EOF%
 
+# fuer Linux alle Scripts ausfuehrbar
+chmod +x $OUT/bin/*
+
 # kubectl CLI
 curl -s -L https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/windows/amd64/kubectl.exe -o $OUT/bin/kubectl.exe
 # docker CLI
