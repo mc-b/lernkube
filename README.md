@@ -165,3 +165,20 @@ Nach der Grundinstallation kann können [mehrere VM's] oder ein [Cluster](#clust
 * [WLAN Access Point aufsetzen](https://wiki.ubuntuusers.de/WLAN_Router/)
 * [Configuring VirtualBox autostart on Linux](https://geek1011.github.io/linux-tips/configuring-virtualbox-autostart/)
 * [Vagrant Default Network Interface](https://www.vagrantup.com/docs/networking/public_network.html#default-network-interface)
+
+#### Links
+
+* [Using kubeadm to Create a Cluster](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/)
+* [Kubernetes-powered Docker CE ](https://www.melvinvivas.com/kubernetes-powered-docker-ce/)
+* [DashBoard](https://github.com/kubernetes/dashboard)
+	
+### Tutorials
+
+* [Minikube aufsetzen](https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/) 
+* [Deployment (Bereitstellung) als Service eintragen](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/)
+
+
+### Reference
+
+* [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
+* [kubectl JSONPath Support](https://kubernetes.io/docs/reference/kubectl/jsonpath/)
