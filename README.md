@@ -45,10 +45,10 @@ Die Installation kann auf einen Windows, Mac- oder Linux Computer erfolgen. Je n
 
 Deshalb sind die nachfolgenden Beschreibungen als Empfehlungen zu sehen.
 
-Alle Installationen basieren auf Änderungen in der `config.yaml` Datei in diesem Verzeichnis. 
+Alle Installationen basieren auf Änderungen in der [config.yaml](config.yaml) Datei in diesem Verzeichnis. 
 
 * [Lernumgebung auf lokalem PC](#quick-start)
-* [Mehrere VM's](#mehrere-vm's)
+* [Mehrere VM's](#mehrere-vms)
 * [Cluster](#cluster)
 * [Dedicated-Server für VM's einrichten](#dedicated-server)
 
@@ -67,7 +67,7 @@ Für Details siehe [Vagrantfile](Vagrantfile) und Verzeichnis [scripts](scripts/
 
 **Alternativ** kann für die Lernenden auch [Docker for Windows/Mac](https://www.docker.com/products/docker-desktop) oder [Minikube](https://github.com/kubernetes/minikube) verwendet werden. Diese Umgebungen sind aber nicht Cluster fähig und erfordern [Feintuning](docker4windows/).
 
-#### Mehrere VM's
+#### Mehrere VMs
 
 Es wird pro Lehrende eine VM zur selbstständigen Verfügung eingerichtet. Die VM's werden  Zentral in einem Rechenzentrum betrieben werden, die Lehrenden greifen mittels Windows PC auf die einzelnen VM zu.
 
