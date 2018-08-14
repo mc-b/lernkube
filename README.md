@@ -29,6 +29,7 @@ Startet die Git/Bash Console und Erstellt die Kubernetes VM mittels:
 
 	git clone https://github.com/mc-b/lernkube
 	cd lernkube
+	vagrant plugin install vagrant-disksize
 	vagrant up
 	
 Öffnet die Interaktive Lernumgebung mittels [http://localhost:32188](http://localhost:32188), wechselt in das Verzeichnis `work` und wählt ein Notebook (ipynp Dateien) an.
