@@ -18,8 +18,9 @@ for i in {1..150}; do # timeout for 5 minutes
   sleep 2
 done
 
-# Internes Pods Netzwerk
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
+# Internes Pods Netzwerk (mit: --iface enp0s8, weil vagrant bei Hostonly Adapters gleiche IP vergibt)
+# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
+kubectl apply -f /vagrant/addons/kube-flannel.yaml
 
 # Pods auf Master Node erlauben
 kubectl taint nodes --all node-role.kubernetes.io/master-
