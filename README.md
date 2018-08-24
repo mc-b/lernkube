@@ -10,12 +10,12 @@ Das Projekt `lernkube` erlaubt es flexible Lernumgebungen für Lehrende und Lern
 Mit einer Kubernetes Umgebung können die Lernenden, nur mit einem Browser, auf eine Vielzahl von Applikationen zugreifen. Dazu greifen sie auf sogenannte [YAML](https://de.wikipedia.org/wiki/YAML)-Dateien zu, welche zum Start der Applikationen dienen. Die YAML Dateien referenzieren wieder [Docker Images](https://hub.docker.com/), welche die eigentlichen Applikationen beinhalten.  
 
 Neben der Lernumgebung stellt `lernkube`, in weiteren Projekten ganze Umgebungen zur Verfügung, z.B.:
-* [MySQL Umgebung mit Bereitstellung von Testdaten und Graphischer Oberfläche](https://github.com/mc-b/dok/tree/master/mysql)
-* [Interaktives Lernen mit Jupyter/BeakerX](https://github.com/mc-b/dok/tree/master/jupyter) 
-* [Beispiele zum Internet der Dinge](https://github.com/mc-b/dok/tree/master/iot)
-* [OS Ticket - Helpdesk Applikation](https://github.com/mc-b/dok/tree/master/osticket)
-* [Beispiele zu Big Data](https://github.com/mc-b/dok/tree/master/bigdata)
-* [DevOps Umgebung für Planung, Continuous Integration und Delivery](https://github.com/mc-b/dok/tree/master/devops)
+* [MySQL Umgebung mit Bereitstellung von Testdaten und Graphischer Oberfläche](https://github.com/mc-b/duk/tree/master/mysql)
+* [Interaktives Lernen mit Jupyter/BeakerX](https://github.com/mc-b/duk/tree/master/jupyter) 
+* [Beispiele zum Internet der Dinge](https://github.com/mc-b/duk/tree/master/iot)
+* [OS Ticket - Helpdesk Applikation](https://github.com/mc-b/duk/tree/master/osticket)
+* [Beispiele zu Big Data](https://github.com/mc-b/duk/tree/master/bigdata)
+* [DevOps Umgebung für Planung, Continuous Integration und Delivery](https://github.com/mc-b/duk/tree/master/devops)
 * [Microservice Beispiele mit REST, Messaging, ESI (Edge Side Include)](https://github.com/mc-b/misegr)
 * [Business Process Model and Notation (BPMN, deutsch Geschäftsprozessmodell und -notation)](https://github.com/mc-b/misegr/tree/master/bpmn)
 

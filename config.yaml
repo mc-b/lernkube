@@ -3,7 +3,7 @@
 master:
   count: 1
   cpus: 2
-  memory: 3072
+  memory: 2048
 # Einstellungen Worker: Anzahl Worker Nodes, Anzahl CPU's und reservierter Arbeitsspeicher. count: 0 erstellt keine Worker Nodes
 worker:
   count: 0
