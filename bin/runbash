@@ -10,5 +10,5 @@ then
 	cmd.exe //c runbash.bat $*
 # Linux
 else
-	kubectl exec -it $(kubectl get pod --selector=app=$1 -o jsonpath='{.items..metadata.name}') -- bash
+	kubectl exec -it $(kubectl get pod --selector=app=$1 -o jsonpath='{.items..metadata.name}') -- sh
 fi
