@@ -1,4 +1,4 @@
-# Standard Konfiguration fuer einen Kubernetes Master mit host-only Netzwerk
+# Kurs: Machine Learning Grundlagen («MLG»)
 # Einstellungen Master: Anzahl Master Nodes, Anzahl CPU's und reservierter Arbeitsspeicher
 master:
   count: 1
@@ -6,7 +6,7 @@ master:
   memory: 8192
 # Einstellungen Worker: Anzahl Worker Nodes, Anzahl CPU's und reservierter Arbeitsspeicher. count: 0 erstellt keine Worker Nodes
 worker:
-  count: 1
+  count: 0
   cpus: 2
   memory: 4096
 # Kubernetes Einstellungen, u.a. aktuelle Version
