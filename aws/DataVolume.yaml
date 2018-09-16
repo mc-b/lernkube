@@ -1,0 +1,26 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: data-volume
+  labels:
+    type: io1
+spec:
+  storageClassName: aws
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-claim
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: aws
+  resources:
+    requests:
+      storage: 1Gi      
