@@ -68,9 +68,16 @@ Alle Installationen basieren auf Änderungen in der [config.yaml](config.yaml) D
 
 Für Details siehe [Vagrantfile](Vagrantfile) und Verzeichnis [scripts](scripts/).
 
-**Alternativ** kann für die Lernenden auch [Docker for Windows/Mac](https://www.docker.com/products/docker-desktop) oder [Minikube](https://github.com/kubernetes/minikube) verwendet werden. Diese Umgebungen sind aber nicht Cluster fähig und erfordern [Feintuning](docker4windows/).
-
 **Bei Problemen** bei der Installation siehe [FAQ](FAQ.md).
+
+#### Alternativen 
+
+Alternativ kann [Docker for Windows/Mac](https://www.docker.com/products/docker-desktop) oder [Minikube](https://github.com/kubernetes/minikube) verwendet werden. Diese Umgebungen sind aber nicht Cluster fähig und erfordern [Feintuning](docker4windows/).
+
+Oder die gleiche Umgebung wie mit lernkube auf den Cloud Plattformen von Amazon und Microsoft eingerichtet werden.
+
+* [Amazon AWS Cloud](aws/) - hat noch Probleme mit Datenspeicherung und LoadBalancer.
+* [Microsoft Azure Cloud](azure/)
 
 #### Mehrere VMs
 
