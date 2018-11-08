@@ -24,8 +24,8 @@ Vagrant.configure(2) do |config|
 	path: "scripts/defaultrouter.sh", args: x.fetch('net').fetch('default_router')     
     	
    # Docker Provisioner
-   config.vm.provision "docker" do |d|
-   end  	   
+   # config.vm.provision "docker" do |d|
+   # end  	   
 
    # Worker Node(s)
    worker_ip = IPAddr.new(x.fetch('ip').fetch('worker'))
@@ -48,6 +48,7 @@ Vagrant.configure(2) do |config|
       worker.vm.hostname = hostname
       
       # Installation
+      worker.vm.provision "shell", path: "scripts/docker.sh"
       worker.vm.provision "shell", path: "scripts/k8sbase.sh", args: [ x.fetch('k8s').fetch('version') ]
       worker.vm.provision "shell", path: "scripts/sshworker.sh"
       worker.vm.provision "shell", path: "scripts/cleanup.sh"
@@ -83,6 +84,7 @@ Vagrant.configure(2) do |config|
       
       # Installation
       master.vm.provision "shell", path: "scripts/docker.sh"
+      master.vm.provision "shell", path: "scripts/dockercert.sh"
       master.vm.provision "shell", path: "scripts/k8sbase.sh", args: [ x.fetch('k8s').fetch('version') ]
       master.vm.provision "shell", path: "scripts/k8smaster.sh"
       master.vm.provision "shell", path: "scripts/k8saddons.sh"
