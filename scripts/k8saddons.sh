@@ -12,3 +12,7 @@ kubectl create -f /vagrant/data/
 	
 # Weave Scope 
 kubectl apply -f "https://cloud.weave.works/k8s/scope.yaml?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+
+# Kubeless
+kubectl create ns kubeless
+kubectl create -f https://github.com/kubeless/kubeless/releases/download/v1.0.0/kubeless-v1.0.0.yaml

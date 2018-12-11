@@ -114,3 +114,5 @@ curl -s -L https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin
 ( cd $OUT/bin/ && curl -s -L https://download.docker.com/win/static/stable/x86_64/docker-17.09.0-ce.zip | bsdtar xvf - && mv docker/docker.exe . && rm -rf docker)
 # helm CLI
 ( cd $OUT/bin/ && curl -s -L https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-rc.3-windows-amd64.zip | bsdtar xvf - && mv windows-amd64/helm.exe . && rm -rf windows-amd64)
+# kubeless
+( cd $OUT/bin/ && curl -s -L https://github.com/kubeless/kubeless/releases/download/v1.0.0/kubeless_windows-amd64.zip | bsdtar xvf - && mv bundles/kubeless_windows-amd64/kubeless.exe . && rm -rf bundles)
