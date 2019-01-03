@@ -1,24 +1,21 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ingress-nginx
-  namespace: ingress-nginx
-  labels:
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx  
+  name: nginx-ingress
+  namespace: nginx-ingress
 spec:
-  type: NodePort
+  externalTrafficPolicy: Local
+  type: LoadBalancer
   ports:
-  - name: http
-    port: 80
+  - port: 80
     targetPort: 80
-    nodePort: 30080
+    nodePort: 30080    
     protocol: TCP
-  - name: https
-    port: 443
+    name: http
+  - port: 443
     targetPort: 443
-    nodePort: 30443
+    nodePort: 30443    
     protocol: TCP
+    name: https
   selector:
-    app.kubernetes.io/name: ingress-nginx
-    
+    app: nginx-ingress
