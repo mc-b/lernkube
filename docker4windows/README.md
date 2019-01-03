@@ -38,7 +38,12 @@ Die folgenden Arbeiten in der Git/Bash ausführen:
 
 ### Dashboard aktivieren (optional)
 
-    kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+	kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+	kubectl apply -f /vagrant/addons/dashboard-admin.yaml
+
+Der Token für den Logindialog kann wie folgt Abgefragt werden:
+
+	kubectl -n kube-system describe secret  $(kubectl -n kube-system get secret | grep kubernetes-dashboard-token | awk ' { print $1 }' ) | grep token:
 
 Weitere:
 * [github Projekt](https://github.com/kubernetes/dashboard)

@@ -33,4 +33,5 @@ fi
 
 echo "===================================================================="
 echo "VM: $(hostname), Cluster-IP: $(hostname -I | cut -d ' ' -f 2)"
+echo "Dashboard $(kubectl -n kube-system describe secret  $(kubectl -n kube-system get secret | grep kubernetes-dashboard-token | awk ' { print $1 }' ) | grep token:)"
 echo "===================================================================="

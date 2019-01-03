@@ -36,7 +36,7 @@ Startet die Git/Bash Console und Erstellt die Kubernetes VM mittels:
 
 Die VM kann mittels `vagrant suspend` angehalten, mittels `vagrant up` wieder gestartet und mittels `vagrant destroy -f` gelöscht werden.
 
-Das Dashboard, von Kubernetes, kann mittels der Datei `dashboard.bat` angezeigt werden. Der Logindialog kann mit `Skip` übersprungen werden.
+Das Dashboard, von Kubernetes, kann mittels der Datei `dashboard.bat` angezeigt werden. Beim Logindialog muss der am Schluss der Installation angezeigten Token angegeben werden. Falls dieser nicht mehr Verfügbar ist, kann er mittels: `kubectl -n kube-system describe secret  $(kubectl -n kube-system get secret | grep kubernetes-dashboard-token | awk ' { print $1 }' ) | grep token:` Abgefragt werden.
 
 Nach dem Anklicken von `kubeps.bat` (PowerShell) oder `kubesh.bat` (Git/Bash) können neue Applikationen und Services mittels `kubectl create -f YAML-Datei` erzeugt und deren Oberfläche mittels `startsvc <service>` angewählt werden. Siehe auch Beispiele oben.
 

@@ -86,7 +86,7 @@ Azure stellt zwei [Persistente Volumes](https://docs.microsoft.com/de-ch/azure/a
 
 Dashboard mit allen Rolen anlegen
 
-	kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+	kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
 	kubectl create -f aws/eks-admin-service-account.yaml
 	kubectl create -f aws/eks-admin-cluster-role-binding.yaml
 	
