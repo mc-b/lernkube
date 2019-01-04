@@ -9,7 +9,8 @@ cat <<%EOF%
 echo "===================================================================="
 echo "VM: $(hostname), Cluster-IP: $(hostname -I | cut -d ' ' -f 2)"
 echo ""
-echo "dashboard - Aufruf Dashboard"
+echo "dashboard - Aufruf Dashboard, Login mit"
+echo "$(kubectl -n kube-system describe secret  $(kubectl -n kube-system get secret | grep kubernetes-dashboard-token | awk ' { print $1 }' ) | grep token:)"
 echo "weave - Aufruf Weave ein Werkzeug zur grafischen Visualisierung der Container"
 echo ""
 echo "kubectl create -f YAML-Datei - Service, laut YAML-Datei, starten"
@@ -25,7 +26,6 @@ echo "vagrant ssh $(hostname) - Wechselt in die VM"
 echo "===================================================================="
 %EOF%
 }
-
 
 sudo apt-get install -q 2 -y dos2unix bsdtar
 
