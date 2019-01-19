@@ -16,7 +16,11 @@ Vagrant.configure(2) do |config|
    config.disksize.size = '40GB'
    
    # Gemeinsames Datenverzeichnis fuer Kubernetes Master und workers
-   config.vm.synced_folder "data", "/data"
+   mc = x.fetch('master').fetch('count')
+   # Single Master
+   if mc == 1
+       config.vm.synced_folder "data", "/data"
+   end
   
    # default router 
    config.vm.provision "shell",
@@ -63,6 +67,11 @@ Vagrant.configure(2) do |config|
 
     config.vm.define hostname do |master|
       c = x.fetch('master')
+      
+   	  # Multi-Master
+	  if mc != 1   
+          config.vm.synced_folder "data-%02d" % i, "/data", create: true  
+      end
       
       # Virtualbox Feintuning
       master.vm.provider :virtualbox do |v|
