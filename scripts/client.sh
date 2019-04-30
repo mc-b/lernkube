@@ -89,7 +89,7 @@ set DOCKER_CERT_PATH=%~d0%~p0.docker
 set PATH=%PATH%;%~d0%~p0bin
 set KUBECONFIG=%~d0%~p0.kube\\config
 $(info)  
-start git-bash.exe   
+start bash.exe   
 %EOF%
 unix2dos $OUT/kubesh.bat	
 
