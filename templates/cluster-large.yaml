@@ -8,7 +8,7 @@ worker:
   cpus: 2
   memory: 4096
 k8s:
-  version:  1.11.9-00  
+  version:  1.14.1-00  
 use_dhcp: false  
 ip:
   master:   192.168.178.200
