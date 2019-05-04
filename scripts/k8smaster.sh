@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#	Kubernetes Master Installation
+#   Kubernetes Master Installation
 #
 
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address  $(hostname -I | cut -d ' ' -f 2)
@@ -18,21 +18,19 @@ for i in {1..150}; do # timeout for 5 minutes
   sleep 2
 done
 
-# Internes Pods Netzwerk (mit: --iface enp0s8, weil vagrant bei Hostonly Adapters gleiche IP vergibt)
-# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
-kubectl apply -f /vagrant/addons/kube-flannel.yaml
-
 # Pods auf Master Node erlauben
 kubectl taint nodes --all node-role.kubernetes.io/master-
+
+# Internes Pods Netzwerk (mit: --iface enp0s8, weil vagrant bei Hostonly Adapters gleiche IP vergibt)
+sysctl net.bridge.bridge-nf-call-iptables=1
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
+kubectl apply -f /vagrant/addons/kube-flannel.yaml
+
 
 # Vagrant User Zugriff auf Cluster erlauben
 cp -rp $HOME/.kube /home/vagrant/
 chown -R vagrant:vagrant /home/vagrant/.kube
 
-# Install nginx ingress 
-kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/common/ns-and-sa.yaml
-kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/common/default-server-secret.yaml
-kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/common/nginx-config.yaml
-kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/rbac/rbac.yaml
-kubectl apply -f https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/master/deployments/deployment/nginx-ingress.yaml
+# Install ingress bare metal, https://kubernetes.github.io/ingress-nginx/deploy/
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
 kubectl apply -f  /vagrant/addons/service-nodeport.yaml
