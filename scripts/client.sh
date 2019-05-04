@@ -109,7 +109,7 @@ $(info)
 chmod +x $OUT/bin/*
 
 # kubectl CLI
-curl -s -L https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/windows/amd64/kubectl.exe -o $OUT/bin/kubectl.exe
+curl -s -L https://storage.googleapis.com/kubernetes-release/release/v1.14.1/bin/windows/amd64/kubectl.exe -o $OUT/bin/kubectl.exe
 # docker CLI
 ( cd $OUT/bin/ && curl -s -L https://download.docker.com/win/static/stable/x86_64/docker-17.09.0-ce.zip | bsdtar xvf - && mv docker/docker.exe . && rm -rf docker)
 # helm CLI
