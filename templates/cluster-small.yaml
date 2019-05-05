@@ -1,4 +1,4 @@
-# Kleine Cluster Umgebung hinter der Fritz.box mit fixen IP-Adressen und Default-GW
+# Kleine Cluster Umgebung 
 master:
   count: 1
   cpus: 2
@@ -9,14 +9,14 @@ worker:
   memory: 2048
 k8s:
   version:  1.14.1-00  
-use_dhcp: false    
+use_dhcp: true    
 ip:
   master:   192.168.178.200
   worker:   192.168.178.201
 
 net:
   network_type: public_network
-  default_router: "route add default gw 192.168.178.1 enp0s8 && route del default gw 10.0.2.2 enp0s3"
+  default_router: ""
 addons:
   # gogs, kanboard, jeninks, Microservices (4x), jupyter (3x), Kubernetes Ingress, docker registry / frontend, mosquitto  
   ports: [ 32100, 32200, 32300, 32080, 32090, 32180, 32280, 32088, 32188, 32288, 30443, 32500, 32580, 31883]
