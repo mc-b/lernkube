@@ -133,7 +133,7 @@ Die wichtigsten Konfigurationen:
 
 Es wird ein Master und zwei Worker Nodes erstellt. Der Master und die Worker Nodes werden während der Installation automatisch miteinnander gejoint.
 
-	use_dhcp: false  
+	use_dhcp: true  
 	ip:
 	  master:   192.168.178.200
 	  worker:   192.168.178.201
