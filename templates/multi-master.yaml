@@ -21,4 +21,4 @@ addons:
   # keine Ports Forwards
   ports: []
   # Repositories mit weiteren Scripts, YAML Dateien etc.
-  git: [ "https://github.com/mc-b/devops.git", "https://github.com/mc-b/misegr.git", "https://github.com/mc-b/duk.git" ]
+  git: [ "https://github.com/mc-b/misegr.git", "https://github.com/mc-b/duk.git" ]
