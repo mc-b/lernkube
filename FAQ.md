@@ -1,5 +1,7 @@
 ### FAQ
 
+#### Vagrant
+
 **Vagrant kann unter Windows 10 keine VM erzeugen, weil Hyper-V aktiv ist**
 * **Lösung:** Hyper-V wie in [Hyper-V unter Windows 10 aktivieren und deaktivieren](https://www.xcep.net/blog/hyper-v-unter-windows-10-aktivieren-und-deaktivieren/) beschrieben, deaktiveren. 
 
@@ -24,3 +26,32 @@
 
 **Alle anderen Fehler.**
 * **Lösung:** Vagrant mittels `vagrant up --debug` starten.
+
+#### Docker
+
+
+#### Kubernetes
+
+**Ein `kubectl` Befehl funktioniert nicht wie gewünscht.**<br>
+* **Lösung:** `kubectl -v9 ...` voranstellen um mehr Debugging Informationen zu erhalten.  
+
+**Die Pods auf den Worker Nodes können nicht mittels `kubectl exec` oder `runbash` angesprochen werden**<br>
+**Problem:** Vagrant weisst als erste IP Adresse immer fix 10.0.2.15 zu. Diese IP-Adresse übernimmt auch K8s.
+
+    kubectl get node worker-01 -o yaml | grep address
+    
+    addresses:
+    - address: 10.0.2.15
+    - address: worker-01
+    
+**Lösung:** Einloggen auf jeder Worker-Node, Datei `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` um IP-Adresse erweitern und Restart kubelet.
+
+    cat <<%EOF% >>/etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+    Environment="KUBELET_EXTRA_ARGS=--node-ip="$(hostname -I | cut '-d ' -f2)"
+    %EOF%
+
+    systemctl daemon-reload
+    systemctl restart kubelet    
+
+@see: [Playing with kubeadm in Vagrant Machines, Part 2](https://medium.com/@joatmon08/playing-with-kubeadm-in-vagrant-machines-part-2-bac431095706)
+  
