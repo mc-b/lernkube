@@ -3,10 +3,13 @@ master:
   count: 1
   cpus: 2
   memory: 5120
+  hostname: master
+  dnsname: master.k8s.local  
 worker:
   count: 2
   cpus: 2
   memory: 4096
+  hostname: worker  
 k8s:
   version:  1.14.1-00  
 use_dhcp: true  

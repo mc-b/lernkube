@@ -16,6 +16,7 @@
   "hosts": [
     "127.0.0.1",
     "$(hostname)",
+    "$1",
     "$(hostname -I | cut -d ' ' -f 2)"
   ],
   "key": {

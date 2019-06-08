@@ -35,7 +35,7 @@ Vagrant.configure(2) do |config|
    worker_ip = IPAddr.new(x.fetch('ip').fetch('worker'))
    (1..x.fetch('worker').fetch('count')).each do |i|
     c = x.fetch('worker')
-    hostname = "worker-%02d" % i
+    hostname = x.fetch('worker').fetch('hostname') + "-%02d" % i
     config.vm.define hostname do |worker|
            
       # Virtualbox Feintuning
@@ -63,7 +63,7 @@ Vagrant.configure(2) do |config|
    _ip = IPAddr.new(x.fetch('ip').fetch('master'))
    (1..x.fetch('master').fetch('count')).each do |i|
     c = x.fetch('master')
-    hostname = "master-%02d" % i
+    hostname = x.fetch('master').fetch('hostname') + "-%02d" % i
 
     config.vm.define hostname do |master|
       c = x.fetch('master')
@@ -93,9 +93,9 @@ Vagrant.configure(2) do |config|
       
       # Installation
       master.vm.provision "shell", path: "scripts/docker.sh"
-      master.vm.provision "shell", path: "scripts/dockercert.sh"
+      master.vm.provision "shell", path: "scripts/dockercert.sh", args: [ x.fetch('master').fetch('dnsname') ]
       master.vm.provision "shell", path: "scripts/k8sbase.sh", args: [ x.fetch('k8s').fetch('version') ]
-      master.vm.provision "shell", path: "scripts/k8smaster.sh"
+      master.vm.provision "shell", path: "scripts/k8smaster.sh", args: [ x.fetch('master').fetch('dnsname') ]
       master.vm.provision "shell", path: "scripts/k8saddons.sh"
       master.vm.provision "shell", path: "scripts/repositories.sh", args: x.fetch('addons').fetch('git')
       master.vm.provision "shell", path: "scripts/client.sh", args: [ x.fetch('master').fetch('count') ]
