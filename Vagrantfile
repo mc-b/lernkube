@@ -18,7 +18,7 @@ Vagrant.configure(2) do |config|
    # Gemeinsames Datenverzeichnis fuer Kubernetes Master und workers
    mc = x.fetch('master').fetch('count')
    # Single Master
-   if mc == 1
+   if mc <= 1
        config.vm.synced_folder "data", "/data"
    end
   
@@ -69,7 +69,7 @@ Vagrant.configure(2) do |config|
       c = x.fetch('master')
       
    	  # Multi-Master
-	  if mc != 1   
+	  if mc > 1 
           config.vm.synced_folder "data-%02d" % i, "/data", create: true  
       end
       
