@@ -3,9 +3,6 @@
 #   Erstellt eine oder mehrere K8s Cluster auf einer oder mehreren Bare Metal Maschinen
 #
 
-cd ~/lernkube
-[ ! -f $1/config.yaml ] && { echo "missing $1/config.yaml"; exit 1; }
-
 #
 #   aktuelle VMs anzeigen
 #
@@ -93,5 +90,8 @@ fi
 
 func=$1
 shift
+cd ~/lernkube
+[ ! -f $1/config.yaml ] && { echo "missing $1/config.yaml"; exit 1; }
+
 ${func} $*
 
