@@ -1,16 +1,16 @@
 # Standard Konfiguration fuer einen Kubernetes Master mit host-only Netzwerk
 # Einstellungen Master: Anzahl Master Nodes, Anzahl CPU's, reservierter Arbeitsspeicher, Hostname Prefix und DNS Name bei externen Zugriff
 master:
-  count: 1
-  cpus: 4
-  memory: 29696
+  count: 0
+  cpus: 1
+  memory: 3072
   hostname: master30
   dnsname: iotkit.mc-b.ch
 # Einstellungen Worker: Anzahl Worker Nodes, Anzahl CPU's und reservierter Arbeitsspeicher und Hostname Prefix. count: 0 erstellt keine Worker Nodes
 worker:
-  count: 0
-  cpus: 4
-  memory: 10240
+  count: 9
+  cpus: 1
+  memory: 3072
   hostname: worker30
 # Kubernetes Einstellungen, u.a. aktuelle Version
 k8s:
@@ -19,8 +19,8 @@ k8s:
 use_dhcp: false
 # Fixe IP Adressen mit welchen die IP fuer Master und Worker beginnen sollen
 ip:
-  master:   192.168.1.17
-  worker:   192.168.1.18
+  master:   192.168.1.80
+  worker:   192.168.1.81
 # Netzwerk "private_network" fuer Host-only Netzwerk, "public_network" fuer Bridged Netzwerke
 net:
   network_type: public_network
