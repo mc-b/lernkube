@@ -1,0 +1,97 @@
+#!/bin/bash
+#
+#   Erstellt eine oder mehrere K8s Cluster auf einer oder mehreren Bare Metal Maschinen
+#
+
+cd ~/lernkube
+[ ! -f $1/config.yaml ] && { echo "missing $1/config.yaml"; exit 1; }
+
+#
+#   aktuelle VMs anzeigen
+#
+function show
+{
+    vagrant status
+    for file in $1/*.yaml
+    do
+        host=`basename $file .yaml`
+        [ "${host}" = "config" ] && { continue; }
+        ssh ${host} '( cd ~/lernkube ; vagrant status )'
+    done
+}
+
+#
+#   aktuelle VMs loeschen
+#
+function destroy
+{
+    echo 'continue and destroy VMs? ([No]/Yes): '
+    read x
+    [ "${x}" != "Yes" ] && { exit 1; }
+    
+    # master aufraeumen
+    vagrant destroy -f
+    rm -rf .kube .docker ssh.config data-?? master-??
+    
+    # VMs loeschen
+    for file in $1/*.yaml
+    do
+        echo "remove VMs on host ${host}"
+        host=`basename $file .yaml`
+        [ "${host}" = "config" ] && { continue; }        
+        ssh ${host} '( cd ~/lernkube ; vagrant destroy -f )'
+        ssh ${host} '( cd ~/lernkube ; rm -rf .kube .docker ssh.config data-?? master-?? )'
+    done
+}
+
+#
+# VMs bauen
+#
+function destroy
+{
+    cp $1/config.yaml config.yaml
+    vagrant up
+    
+    # remote VMs bauen
+    for file in $1/*.yaml
+    do
+        echo "create VMs on host ${host}"
+        host=`basename $file .yaml`
+        [ "${host}" = "config" ] && { continue; }        
+        scp $file ${host}:lernkube/config.yaml
+        ssh ${host} '( cd ~/lernkube ; vagrant up )'
+    done
+}
+
+#
+# worker finden und joinen
+#
+function join
+{
+    for file in $1/*.yaml
+    do
+        echo "join VMs on host ${host}"
+        host=`basename $file .yaml`
+        [ "${host}" = "config" ] && { continue; }        
+        for h in $(ssh ${host} '( cd ~/lernkube; find .vagrant -name private_key | grep worker | cut -d/ -f 3 )')
+        do
+            echo ${h}
+            vagrant ssh ${h} -c "sudo ${join}"
+        done
+    done
+}
+
+########################
+#
+#   Hauptprogramm
+
+if  [ $# -eq 0 ]
+then
+    echo 'clusteradm [show|destroy|join] template master'
+    exit 1
+fi
+
+func=$1
+shift
+${func} $*
+
