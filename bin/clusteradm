@@ -75,7 +75,7 @@ join=$(vagrant ssh $2 -c "kubeadm token create --print-join-command")
         for h in $(ssh ${host} '( cd ~/lernkube; find .vagrant -name private_key | grep worker | cut -d/ -f 3 )')
         do
             echo ${h}
-            echo vagrant ssh ${h} -c "sudo ${join}"
+            ssh ${host} "( cd ~/lernkube; vagrant ssh ${h} -c \"sudo ${join}\" )"
         done
     done
 }
