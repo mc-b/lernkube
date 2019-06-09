@@ -33,9 +33,9 @@ function destroy
     # VMs loeschen
     for file in $1/*.yaml
     do
-        echo "remove VMs on host ${host}"
         host=`basename $file .yaml`
         [ "${host}" = "config" ] && { continue; }        
+        echo "remove VMs on host ${host}"
         ssh ${host} '( cd ~/lernkube ; vagrant destroy -f )'
         ssh ${host} '( cd ~/lernkube ; rm -rf .kube .docker ssh.config data-?? master-?? )'
     done
@@ -52,9 +52,9 @@ function up
     # remote VMs bauen
     for file in $1/*.yaml
     do
-        echo "create VMs on host ${host}"
         host=`basename $file .yaml`
         [ "${host}" = "config" ] && { continue; }        
+        echo "create VMs on host ${host}"
         scp $file ${host}:lernkube/config.yaml
         ssh ${host} '( cd ~/lernkube ; vagrant up )'
     done
@@ -70,18 +70,18 @@ vagrant ssh $2 -c "sudo kubeadm token create --print-join-command" | tr -d '\r' 
 
     for file in $1/*.yaml
     do
-        echo "join VMs on host ${host}"
         host=`basename $file .yaml`
         [ "${host}" = "config" ] && { continue; }        
-	scp join ${host}:lernkube/data
+        echo "join VMs on host ${host}"
+    	scp join ${host}:lernkube/data
         for h in $(ssh ${host} '( cd ~/lernkube; find .vagrant -name private_key | grep worker | cut -d/ -f 3 )')
         do
             echo ${h}
             ssh ${host} "cd ~/lernkube && vagrant ssh ${h} -c 'sudo bash -x /data/join'"
         done
-	ssh ${host} rm -f lernkube/data/join
+	   ssh ${host} rm -f lernkube/data/join
     done
-rm -f join
+    rm -f join
 }
 
 ########################
