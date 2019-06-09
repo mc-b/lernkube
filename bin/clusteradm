@@ -28,7 +28,7 @@ function destroy
     
     # master aufraeumen
     vagrant destroy -f
-    rm -rf .kube .docker ssh.config data-?? master-??
+    rm -rf .kube .docker ssh.config data-?? *master*-??
     
     # VMs loeschen
     for file in $1/*.yaml
@@ -37,7 +37,7 @@ function destroy
         [ "${host}" = "config" ] && { continue; }        
         echo "remove VMs on host ${host}"
         ssh ${host} '( cd ~/lernkube ; vagrant destroy -f )'
-        ssh ${host} '( cd ~/lernkube ; rm -rf .kube .docker ssh.config data-?? master-?? )'
+        ssh ${host} '( cd ~/lernkube ; rm -rf .kube .docker ssh.config data-?? *master*-?? )'
     done
 }
 
