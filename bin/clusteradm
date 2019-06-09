@@ -6,7 +6,7 @@
 #
 #   aktuelle VMs anzeigen
 #
-function show
+function status
 {
     vagrant status
     for file in $1/*.yaml
@@ -65,6 +65,8 @@ function destroy
 #
 function join
 {
+join=$(vagrant ssh $2 -c "kubeadm token create --print-join-command")
+
     for file in $1/*.yaml
     do
         echo "join VMs on host ${host}"
@@ -73,7 +75,7 @@ function join
         for h in $(ssh ${host} '( cd ~/lernkube; find .vagrant -name private_key | grep worker | cut -d/ -f 3 )')
         do
             echo ${h}
-            vagrant ssh ${h} -c "sudo ${join}"
+            echo vagrant ssh ${h} -c "sudo ${join}"
         done
     done
 }
@@ -82,9 +84,9 @@ function join
 #
 #   Hauptprogramm
 
-if  [ $# -eq 0 ]
+if  [ $# -lt 3 ]
 then
-    echo 'clusteradm [show|destroy|join] template master'
+    echo 'clusteradm [status|destroy|join] template master'
     exit 1
 fi
 
