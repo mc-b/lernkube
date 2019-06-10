@@ -11,7 +11,7 @@ worker:
   count: 1
   cpus: 4
   memory: 29696
-  hostname: worker40
+  hostname: worker50
 # Kubernetes Einstellungen, u.a. aktuelle Version
 k8s:
   version: 1.14.1-00
@@ -19,8 +19,8 @@ k8s:
 use_dhcp: false
 # Fixe IP Adressen mit welchen die IP fuer Master und Worker beginnen sollen
 ip:
-  master:   192.168.1.40
-  worker:   192.168.1.41
+  master:   192.168.1.50
+  worker:   192.168.1.51
 # Netzwerk "private_network" fuer Host-only Netzwerk, "public_network" fuer Bridged Netzwerke
 net:
   network_type: public_network

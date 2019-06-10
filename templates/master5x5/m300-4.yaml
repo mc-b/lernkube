@@ -19,8 +19,8 @@ k8s:
 use_dhcp: false
 # Fixe IP Adressen mit welchen die IP fuer Master und Worker beginnen sollen
 ip:
-  master:   192.168.1.41
-  worker:   192.168.1.42
+  master:   192.168.1.40
+  worker:   192.168.1.41
 # Netzwerk "private_network" fuer Host-only Netzwerk, "public_network" fuer Bridged Netzwerke
 net:
   network_type: public_network
