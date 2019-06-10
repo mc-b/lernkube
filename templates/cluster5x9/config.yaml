@@ -4,7 +4,7 @@ master:
   count: 1
   cpus: 2
   memory: 3072
-  hostname: master10
+  hostname: master
   dnsname: iotkit.mc-b.ch
 # Einstellungen Worker: Anzahl Worker Nodes, Anzahl CPU's und reservierter Arbeitsspeicher und Hostname Prefix. count: 0 erstellt keine Worker Nodes
 worker:
