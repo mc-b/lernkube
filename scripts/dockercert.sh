@@ -57,7 +57,9 @@ Type=notify
 # exists and systemd currently does not support the cgroup feature set required
 # for containers run by docker
 ExecStart=/usr/bin/dockerd --tlsverify --tlscacert=/etc/docker/ca.pem --tlscert=/etc/docker/server.pem \
---tlskey=/etc/docker/server-key.pem -H=0.0.0.0:2376 -H fd://
+--tlskey=/etc/docker/server-key.pem -H=0.0.0.0:2376 -H fd:// \
+--insecure-registry=localhost:32500 --insecure-registry=localhost:32512 --insecure-registry=localhost:32513 \
+--insecure-registry=$(hostname -I | cut -d ' ' -f 2):32512 --insecure-registry=$(hostname -I | cut -d ' ' -f 2):32513
 ExecReload=/bin/kill -s HUP $MAINPID
 LimitNOFILE=1048576
 # Having non-zero Limit*s causes performance problems due to accounting overhead
