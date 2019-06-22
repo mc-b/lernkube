@@ -84,6 +84,25 @@ vagrant ssh $2 -c "sudo kubeadm token create --print-join-command" | tr -d '\r' 
     rm -f join
 }
 
+#
+# master .kube/.docker etc. finden und zippen
+#
+function zip
+{
+
+    for file in $1/*.yaml
+    do
+        host=`basename $file .yaml`
+        [ "${host}" = "config" ] && { continue; }        
+        echo "zip VMs on host ${host}"
+        for h in $(ssh ${host} '( cd ~/lernkube; find .vagrant -name private_key | grep master | cut -d/ -f 3 )')
+        do
+            echo ${h}
+            ssh ${host} "cd ~/lernkube && zip -r - ${h}" | cat - >${h}.zip
+        done
+    done
+}
+
 ########################
 #
 #   Hauptprogramm
