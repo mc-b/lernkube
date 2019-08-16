@@ -20,7 +20,7 @@ use_dhcp: false
 # Fixe IP Adressen mit welchen die IP fuer Master und Worker beginnen sollen
 ip:
   master:   172.16.17.61
-  master:   172.16.17.66
+  worker:   172.16.17.66
 # Netzwerk "private_network" fuer Host-only Netzwerk, "public_network" fuer Bridged Netzwerke
 net:
   network_type: public_network
