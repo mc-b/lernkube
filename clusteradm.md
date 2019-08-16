@@ -51,6 +51,15 @@ Testen mittels
 
     ssh <hostname>
     
+Um immer mit den gleichen ssh Namen auf die Server zuzugreifen ist auf dem ersten Server eine Datei `.ssh/config` mit folgendem Inhalt zu erstellen:
+
+    Host w1
+        Hostname 172.16.17.X1
+    Host w2
+        Hostname 172.16.17.X2
+
+etc. Damit können die anderen Server mittels `ssh w1`, `ssh w2` etc. angesprochen werden.     
+    
 ### Installation der Software
 
 Auf jedem Server wird VirtualBox, Vagrant und das geklonte Projekt `lernkube` benötigt. Die eigentlichern Kubernetes Nodes laufen immer in virtuellen Maschinen, damit wird eine grössere Flexibilität der Umgebung erreicht.
