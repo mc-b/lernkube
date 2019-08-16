@@ -66,10 +66,9 @@ Auf jedem Server wird VirtualBox, Vagrant und das geklonte Projekt `lernkube` be
 
 Installation VirtualBox und abhängige Software:
 
-    sudo apt-get install -y git curl wget gcc make perl zip 
-    wget https://download.virtualbox.org/virtualbox/6.0.8/virtualbox-6.0_6.0.8-130520~Ubuntu~xenial_amd64.deb
-    sudo dpkg -i virtualbox-6.0_6.0.8-130520~Ubuntu~xenial_amd64.deb
-    sudo apt-get install -f
+    sudo apt-get update
+    sudo apt-get install -y git curl wget gcc make perl zip
+    sudo apt-get install -y virtualbox 
 
 Installation Vagrant und benötigte Plug-Ins:
 
