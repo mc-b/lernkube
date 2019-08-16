@@ -28,14 +28,14 @@ Bei Ubuntu 18.x ist dazu die Datei `/etc/netplan/01-netcfg-yaml` zu ändern, z.B
 
     # For more information, see netplan(5).
     network:
-      version: 2
-      renderer: networkd
       ethernets:
-        enp2s0:
-           dhcp4: no
-           dhcp6: no
-           addresses: [192.168.178.12/24]
-           gateway4: 192.168.178.1
+        eno1:
+           dhcp4: false
+           addresses: [172.16.17.XX/24]
+           gateway4: 172.16.17.1
+           nameservers:
+               addresses: [10.62.98.8,10.62.99.8]           
+      version: 2
 
 etc. für die weiteren Server.
 
