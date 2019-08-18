@@ -3,15 +3,15 @@
 master:
   count: 1
   cpus: 4
-  memory: 29696
+  memory: 7168
   hostname: master
   dnsname: iotkit.mc-b.ch
 # Einstellungen Worker: Anzahl Worker Nodes, Anzahl CPU's und reservierter Arbeitsspeicher und Hostname Prefix. count: 0 erstellt keine Worker Nodes
 worker:
-  count: 0
+  count: 3
   cpus: 4
-  memory: 10240
-  hostname: worker
+  memory: 7168
+  hostname: worker00
 # Kubernetes Einstellungen, u.a. aktuelle Version
 k8s:
   version: 1.14.1-00
