@@ -12,10 +12,12 @@ Die Nodes werden dabei auf mehrere physikalische Server verteilt.
 Der erste Server beinhaltet immer den Master und evtl. Worker Nodes. 
 Die weiteren Server nur Worker Nodes oder weitere autonome Master.
 
-Beispiele, basierend auf fünf physikalischen Servern sind:
-* ein Master und vier Worker Nodes, als ein Grosser K8s Cluster
-* fünf Master pro Server - Total 25 Master, z.B. damit jeder Lernende einen Master zur Verfügung hat
-* ein Master und vier Worker auf dem ersten Server, weitere 20 Worker verteilt auf die weiteren Server, z.B. um einen grösseren Cluster zu testen.
+Beispiele, basierend auf sechs physikalischen Servern sind:
+* ein Master und fünf Worker Nodes, als ein Grosser K8s Cluster
+* vier Master pro Server - Total 24 Master, z.B. damit jeder Lernende einen Master zur Verfügung hat
+* ein Master und drei Worker auf dem ersten Server, weitere 20 Worker verteilt auf die weiteren Server, z.B. um einen grösseren Cluster zu testen.
+
+**Nach er erstmaligen Installation der physikalsichen Server wird keine weitere SW auf diese Installiert. SW wird nur in die Virtuellen Maschinen installiert, bzw. es werden Container gestartet**
 
 Installation der Server
 -----------------------
@@ -24,7 +26,7 @@ Installation der Server
 
 Der Einfachheit halber wird mit statischen IP-Adressen für die Server gearbeitet.
 
-Bei Ubuntu 18.x ist dazu die Datei `/etc/netplan/01-netcfg-yaml` zu ändern, z.B.
+Bei Ubuntu 18.x ist dazu die Datei `/etc/netplan/50-cloud-yaml` zu ändern, z.B.
 
     # For more information, see netplan(5).
     network:
@@ -67,8 +69,7 @@ Auf jedem Server wird VirtualBox, Vagrant und das geklonte Projekt `lernkube` be
 Installation VirtualBox und abhängige Software:
 
     sudo apt-get update
-    sudo apt-get install -y git curl wget gcc make perl zip
-    sudo apt-get install -y virtualbox 
+    sudo apt-get install -y git curl wget gcc make perl zip virtualbox
 
 Installation Vagrant und benötigte Plug-Ins:
 
@@ -79,6 +80,8 @@ Installation Vagrant und benötigte Plug-Ins:
 Clonen des Projektes `lernkube` von github:
 
     git clone https://github.com/mc-b/lernkube
+    
+**Trick**: zuerst `lernkube` clonen und obige Befehle in separate Datei rausschreiben und ausführen mittels `bash -x install` 
     
 Damit ist die Grundinstallation abgeschlossen. Um zu Testen ob die Installation funktioniert kann ein einfacher Cluster erstellt werden:
 
@@ -93,25 +96,39 @@ läuft alles durch, erscheint am Schluss eine Meldung welche ungefähr so aussie
     token:      .....
     ====================================================================
 
+Aufräumen nicht vergessen
+
+    vagrant destroy -f
+
 Cluster Umgebung aufbauen
 -------------------------
 
 ### Layouts
 
 Cluster Umgebungen basieren auf einem Layout. Ein Layout ist eine Anordnung bzw. Verteilung von virtuellen Maschinen auf den physikalischen Servern, z.B.:
-* ein Master und vier Worker Nodes, als ein Grosser K8s Cluster
-* fünf Master pro Server - Total 25 Master, z.B. damit jeder Lernende einen Master zur Verfügung hat
-* ein Master und vier Worker auf dem ersten Server, weitere 20 Worker verteilt auf die weiteren Server, z.B. um einen grösseren Cluster zu testen.
+* ein Master und fünf Worker Nodes, als ein Grosser K8s Cluster
+* vier Master pro Server - Total 24 Master, z.B. damit jeder Lernende einen Master zur Verfügung hat
+* ein Master und drei Worker auf dem ersten Server, weitere 20 Worker verteilt auf die weiteren Server, z.B. um einen grösseren Cluster zu testen.
 
 Layouts basieren auf `config.yaml` für den ersten physikalischen Server und `<server>.yaml` Dateien, welche im `templates/<layout>` Verzeichnis abgelegt werden.
 Der Name sollte sprechend sein, z.B.
-* cluster5x1
-* master5x5
-* cluster5x5
+* cluster6x1
+* master6x4
+* cluster6x4
+
+**ACHTUNG**: je nach Netzwerk ist der Eintrag `default_router` richtig zu setzen, bzw. zu entfernen
+
+Fixe IP-Adressen ohne DHCP Server und manuellem Gateway Eintrag:
+
+    default_router: "route add default gw 172.16.17.1 enp0s8 && route del default gw 10.0.2.2 enp0s3"
+    
+Mit vorhandenem DHCP Server und automatischem Routing:   
+
+    default_router: ""
 
 #### Beispiel: ein Master und vier Worker Nodes
 
-Datei `config.yaml`, die komplette Datei findet man im Verzeichnis `templates/cluster5x1`
+Datei `config.yaml`, die komplette Datei findet man im Verzeichnis `templates/cluster6x1`
 
     master:
       count: 1
@@ -136,24 +153,24 @@ Die Dateien `<server>.yaml`
 
 **Starten**
 
-    clusteradm up templates/cluster5x1
-    clusteradm join templates/cluster5x1 master-01
+    clusteradm up templates/cluster6x1
+    clusteradm join templates/cluster6x1 master-01
     
-#### Beispiel: fünf Master pro Server 
+#### Beispiel: vier Master pro Server 
 
-Datei `config.yaml`, die komplette Datei findet man im Verzeichnis `templates/master5x1`
+Datei `config.yaml`, die komplette Datei findet man im Verzeichnis `templates/master6x4`
 
     master:
-      count: 5
-      hostname: master10
+      count: 4
+      hostname: master00
     worker:
       count: 0
 
 Die Dateien `<server>.yaml`
 
     master:
-      count: 5
-      hostname: master20
+      count: 4
+      hostname: masterX0
     worker:
       count: 0
       
@@ -166,8 +183,8 @@ Die Dateien `<server>.yaml`
 
 Starten bzw. Erstellen der einzelnen VMs und anschliessendes Aufbereiten der Serverkeys, `kubectl` etc. für den Remotezugriff auf die VMs:
 
-    clusteradm up templates/master5x1
-    clusteradm zip templates/master5x1
+    clusteradm up templates/master6x4
+    clusteradm zip templates/master6x4
    
 Die erstellten ZIP Dateien, auf dem ersten physikalischen Server, sind den Lernenden abzugeben. Diese entpacken diese ein einem Verzeichnis ihrer Wahl und setzen die Umgebung mittels:
 * Doppelklick auf `kubeps.bat` für Powershell
