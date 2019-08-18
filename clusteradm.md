@@ -153,6 +153,8 @@ Die Dateien `<server>.yaml`
 
 **Starten**
 
+    clusteradm status templates/cluster6x1
+    clusteradm destroy templates/cluster6x1
     clusteradm up templates/cluster6x1
     clusteradm join templates/cluster6x1 master-01
     
@@ -183,6 +185,8 @@ Die Dateien `<server>.yaml`
 
 Starten bzw. Erstellen der einzelnen VMs und anschliessendes Aufbereiten der Serverkeys, `kubectl` etc. für den Remotezugriff auf die VMs:
 
+    clusteradm status templates/master6x4
+    clusteradm destroy templates/master6x4
     clusteradm up templates/master6x4
     clusteradm zip templates/master6x4
    
