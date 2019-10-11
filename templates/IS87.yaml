@@ -3,14 +3,14 @@
 master:
   count: 1
   cpus: 2
-  memory: 8192
+  memory: 6144
   hostname: master
   dnsname: master.k8s.local  
 # Einstellungen Worker: Anzahl Worker Nodes, Anzahl CPU's und reservierter Arbeitsspeicher. count: 0 erstellt keine Worker Nodes
 worker:
   count: 0
   cpus: 2
-  memory: 4096
+  memory: 6144
   hostname: worker  
 # Kubernetes Einstellungen, u.a. aktuelle Version
 k8s:
