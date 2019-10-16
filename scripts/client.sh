@@ -13,7 +13,7 @@ echo "dashboard - Aufruf Dashboard, Login mit"
 echo "$(kubectl -n kube-system describe secret  $(kubectl -n kube-system get secret | grep kubernetes-dashboard-token | awk ' { print $1 }' ) | grep token:)"
 echo "weave - Aufruf Weave ein Werkzeug zur grafischen Visualisierung der Container"
 echo ""
-echo "kubectl create -f YAML-Datei - Service, laut YAML-Datei, starten"
+echo "kubectl apply -f YAML-Datei - Service, laut YAML-Datei, starten bzw. aktualisieren"
 echo "kubectl delete -f YAML-Datei - Service, laut YAML-Datei, loeschen"
 echo "startsvc 'service' - Oeffnet Service UI im Browser"
 echo "runbash 'service' - Wechselt in die Bash des Containers 'service'"
@@ -113,6 +113,6 @@ curl -s -L https://storage.googleapis.com/kubernetes-release/release/v1.14.1/bin
 # docker CLI
 ( cd $OUT/bin/ && curl -s -L https://download.docker.com/win/static/stable/x86_64/docker-17.09.0-ce.zip | bsdtar xvf - && mv docker/docker.exe . && rm -rf docker)
 # helm CLI
-( cd $OUT/bin/ && curl -s -L https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-rc.3-windows-amd64.zip | bsdtar xvf - && mv windows-amd64/helm.exe . && rm -rf windows-amd64)
+( cd $OUT/bin/ && curl -s -L https://get.helm.sh/helm-v2.15.0-rc.1-windows-amd64.zip | bsdtar xvf - && mv windows-amd64/helm.exe . && rm -rf windows-amd64)
 # kubeless
 ( cd $OUT/bin/ && curl -s -L https://github.com/kubeless/kubeless/releases/download/v1.0.0/kubeless_windows-amd64.zip | bsdtar xvf - && mv bundles/kubeless_windows-amd64/kubeless.exe . && rm -rf bundles)
