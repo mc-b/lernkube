@@ -109,10 +109,10 @@ $(info)
 chmod +x $OUT/bin/*
 
 # kubectl CLI
-curl -s -L https://storage.googleapis.com/kubernetes-release/release/v1.14.1/bin/windows/amd64/kubectl.exe -o $OUT/bin/kubectl.exe
+curl -s -L https://storage.googleapis.com/kubernetes-release/release/v1.15.1/bin/windows/amd64/kubectl.exe -o $OUT/bin/kubectl.exe
 # docker CLI
 ( cd $OUT/bin/ && curl -s -L https://download.docker.com/win/static/stable/x86_64/docker-17.09.0-ce.zip | bsdtar xvf - && mv docker/docker.exe . && rm -rf docker)
 # helm CLI
-( cd $OUT/bin/ && curl -s -L https://get.helm.sh/helm-v2.15.0-rc.1-windows-amd64.zip | bsdtar xvf - && mv windows-amd64/helm.exe . && rm -rf windows-amd64)
+( cd $OUT/bin/ && curl -s -L https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-rc.3-windows-amd64.zip | bsdtar xvf - && mv windows-amd64/helm.exe . && rm -rf windows-amd64)
 # kubeless
 ( cd $OUT/bin/ && curl -s -L https://github.com/kubeless/kubeless/releases/download/v1.0.0/kubeless_windows-amd64.zip | bsdtar xvf - && mv bundles/kubeless_windows-amd64/kubeless.exe . && rm -rf bundles)
