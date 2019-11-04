@@ -3,6 +3,30 @@
 #	ssh fuer Zugriff Master auf Worker konfigurieren
 #
 
+####
+# evtl. vorhandene /vagrant/templates/config/authorized_keys anfuegen
+
+if [ -f "/vagrant/templates/config/authorized_keys" ]
+then
+    cat /vagrant/templates/config/authorized_keys >>/home/vagrant/.ssh/authorized_keys
+fi
+
+####
+# Wireguard installieren wenn wg0.conf vorhanden ist
+
+if [ -f "/vagrant/templates/config/wg0.conf" ]
+then
+    add-apt-repository -y ppa:wireguard/wireguard
+    apt-get update
+    apt-get install -y wireguard
+    cp /vagrant/templates/config/wg0.conf /etc/wireguard/
+    chmod 750 /etc/wireguard
+    systemctl enable wg-quick@wg0.service
+    systemctl start wg-quick@wg0.service
+fi        
+
+####
+# Worker Joinen
 
 NODES=$(find /vagrant/.vagrant -name private_key | grep worker | cut -d/ -f 5)
 
