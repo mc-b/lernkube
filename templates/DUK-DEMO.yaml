@@ -3,12 +3,12 @@
 master:
   count: 1
   cpus: 4
-  memory: 8192
+  memory: 10240
   hostname: master
   dnsname: master.k8s.local
 # Einstellungen Worker: Anzahl Worker Nodes, Anzahl CPU's und reservierter Arbeitsspeicher und Hostname Prefix. count: 0 erstellt keine Worker Nodes
 worker:
-  count: 2
+  count: 0
   cpus: 4
   memory: 8192
   hostname: worker
