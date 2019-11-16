@@ -18,6 +18,7 @@ Datei `/etc/netplan/01-netcnf.yaml` editieren, bzw. ergänzen:
       version: 2
       renderer: NetworkManager
       ethernets:
+      
         enp42s0:
           gateway4: 192.168.1.1
           dhcp4: false
@@ -30,22 +31,25 @@ Datei `/etc/netplan/01-netcnf.yaml` editieren, bzw. ergänzen:
           
 ---
 
-    network:
-      version: 2
-      renderer: networkd
-      ethernets:
-        enp3s0:
-         dhcp4: no
-         dhcp6: no
-      bridges:
-       br0:
-        interfaces: [enp3s0]
-        dhcp4: no
-        dhcp6: no    
-        addresses: [192.168.178.18/24]
-        gateway4: 192.168.178.1
-        nameservers:
-          addresses: [192.168.178.1]           
+# This file describes the network interfaces available on your system
+# For more information, see netplan(5).
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp5s0:
+      dhcp4: false
+      dhcp6: false
+  bridges:
+    br0:
+      dhcp4: false
+      dhcp6: false
+      interfaces: [enp5s0]
+      addresses: [172.16.17.13/24]
+      gateway4: 172.16.17.1
+      nameservers:
+       addresses: [10.62.98.8,10.62.99.8,8.8.8.8]
+           
         
 Aktiveren
           

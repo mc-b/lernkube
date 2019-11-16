@@ -7,4 +7,5 @@ Lose Sammlung von Erweiterungen.
 
 * [KVM](KVM.md)
 * [MAAS](MAAS.md)
+* [WireGuard](WireGuard.md)
  
