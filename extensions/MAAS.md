@@ -10,9 +10,7 @@ Das ist u.a. wichtig wenn pro Modul oder Unterrichtsraum ein eigener Cluster zur
 Lehrbeauftragte und Dozenten sollen via Web Oberfläche, einfach `lernkube`-Cluster erstellen, warten und überwachen können.
 
 **TODO**
-* Vagrant Box auf generic/ubuntu1804 wechseln
-* Installationsvariante MAAS statt vagrant?
-* Weiterleitung Netzwerk?
+* Installationsvariante MAAS statt vagrant, siehe Links.
 
 ## Installation Software
 
@@ -142,10 +140,29 @@ Bei Netzwerkfehlern, Server frisch starten.
 DHCP Testen
 
     sudo nmap --script broadcast-dhcp-discover -e virbr0
+    
+Custom Box hinzufügen
 
+    maas $profile boot-resources create name=custom/$imagedisplayname architecture=amd64/generic content=@$tgzfilepath    
+    
+**Customising Installationsscript**
+
+Datei `/etc/maas/preseeds/curtin_userdata` wie folgt Erweitern:
+
+    10_git: ["curtin", "in-target", "--", "sh", "-c", "apt-get -y install git curl wget"]
+    20_git: ["curtin", "in-target", "--", "sh", "-c", "git clone https://github.com/mc-b/lernkube /home/ubuntu/lernkube && chown -R 1000:1000 /home/ubuntu/lernkube"]
+    30_git: ["curtin", "in-target", "--", "sh", "-x", "/home/ubuntu/lernkube/scripts/docker.sh"]
+
+Beim Deployen wird zusätzlich das Projekt `lernkube` geclont und Docker installiert.
+    
 ## Links
 
 * [Bridge KVM](https://askubuntu.com/questions/1054350/netplan-bridge-for-kvm-on-ubuntu-server-18-04-with-static-ips)
 * [Static IP Ubuntu 18](https://linuxconfig.org/how-to-configure-static-ip-address-on-ubuntu-18-04-bionic-beaver-linux)
 * [broadcast-dhcp-discover](https://nmap.org/nsedoc/scripts/broadcast-dhcp-discover.html)
 * [Setup Default Network](http://blog.programster.org/kvm-missing-default-network)
+* [Customising MAAS installs](https://ubuntu.com/blog/customising-maas-installs)
+* [MAAS Blog Übersicht](https://ubuntu.com/blog/tag/maas)
+* [curtin](https://maas.io/docs/custom-node-setup-preseed) 
+* [Customising MAAS](https://ubuntu.com/blog/customising-maas-installs)
+* [Customising MAAS installs](http://mattjarvis.org.uk/post/customising-maas/)
