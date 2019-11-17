@@ -147,13 +147,23 @@ Custom Box hinzufügen
     
 **Customising Installationsscript**
 
-Datei `/etc/maas/preseeds/curtin_userdata` wie folgt Erweitern:
+Datei `/etc/maas/preseeds/curtin_userdata_ubuntu` erstellen und folgendes eintragen:
 
-    10_git: ["curtin", "in-target", "--", "sh", "-c", "apt-get -y install git curl wget"]
-    20_git: ["curtin", "in-target", "--", "sh", "-c", "git clone https://github.com/mc-b/lernkube /home/ubuntu/lernkube && chown -R 1000:1000 /home/ubuntu/lernkube"]
-    30_git: ["curtin", "in-target", "--", "sh", "-x", "/home/ubuntu/lernkube/scripts/docker.sh"]
+    #cloud-config
+    debconf_selections:
+     maas: |
+      {{for line in str(curtin_preseed).splitlines()}}
+      {{line}}
+      {{endfor}}
+    #
+    late_commands:
+      maas: [wget, '--no-proxy', {{node_disable_pxe_url|escape.json}}, '--post-data', {{node_disable_pxe_data|escape.json}}, '-O', '/dev/null']
+      10_git: ["curtin", "in-target", "--", "sh", "-c", "apt-get -y install git curl wget"]
+      20_git: ["curtin", "in-target", "--", "sh", "-c", "git clone https://github.com/mc-b/lernkube /home/ubuntu/lernkube && chown -R 1000:1000 /home/ubuntu/lernkube"]
+      30_git: ["curtin", "in-target", "--", "sh", "-x", "/home/ubuntu/lernkube/scripts/docker.sh"]
 
-Beim Deployen wird zusätzlich das Projekt `lernkube` geclont und Docker installiert.
+Beim Deployen von Ubuntu Images wird zusätzlich das Projekt `lernkube` geclont und Docker installiert. 
+Die `maas` Befehle sind notwendig, dass die VM richtig beendet wird und sauber rebooted.
     
 ## Links
 
