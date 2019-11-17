@@ -69,12 +69,16 @@ Auf jedem Server wird VirtualBox, Vagrant und das geklonte Projekt `lernkube` be
 Installation VirtualBox und abhängige Software:
 
     sudo apt-get update
-    sudo apt-get install -y git curl wget gcc make perl zip virtualbox
+    sudo apt-get install -y git curl wget gcc make perl zip libltdl7
+    wget https://download.virtualbox.org/virtualbox/6.0.14/virtualbox-6.0_6.0.14-133895~Ubuntu~bionic_amd64.deb
+    sudo dpkg -i virtualbox-6.0_6.0.14-133895~Ubuntu~bionic_amd64.deb
+    sudo apt-get -f -y install
+    
 
 Installation Vagrant und benötigte Plug-Ins:
 
-    wget https://releases.hashicorp.com/vagrant/2.2.4/vagrant_2.2.4_x86_64.deb
-    sudo dpkg -i vagrant_2.2.4_x86_64.deb
+    wget https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_x86_64.deb
+    sudo dpkg -i vagrant_2.2.6_x86_64.deb
     vagrant plugin install vagrant-disksize
 
 Clonen des Projektes `lernkube` von github:
