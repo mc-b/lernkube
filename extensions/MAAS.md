@@ -88,9 +88,9 @@ Anschliessend wird eine Bridge `br0`, welche den Verkehr zum Interface `br0` wei
     </network>
     %EOF%
 
-    virsh net-define br0.xml
-    virsh net-start br0
-    virsh net-autostart br0
+    sudo virsh net-define br0.xml
+    sudo virsh net-start br0
+    sudo virsh net-autostart br0
 
 ### Disk Pool einrichten
 
@@ -130,12 +130,13 @@ UI von MAAS aufrufen [ip:5240](http://localhost:5240)
 
 * SSH-Key z.B. `id_remote.pub` manuell eintragen
 * DNS Server eintragen. 
-* Images syncen
 * Bei Subnets DHCP Server aktivieren auf 192.168.122.x, Gateway IP: 192.168.122.1 und DNS Server eintragen
+
+**Server frisch starten, ansonsten werden die Änderungen nicht übernommen.**
+
+* Images syncen
 * Aktuelle Maschine als Pod eintragen
 * Pod -> Compose VM
-
-Bei Netzwerkfehlern, Server frisch starten.
 
 DHCP Testen
 
@@ -176,3 +177,4 @@ Die `maas` Befehle sind notwendig, dass die VM richtig beendet wird und sauber r
 * [curtin](https://maas.io/docs/custom-node-setup-preseed) 
 * [Customising MAAS](https://ubuntu.com/blog/customising-maas-installs)
 * [Customising MAAS installs](http://mattjarvis.org.uk/post/customising-maas/)
+* [Ubuntu MAAS 2.2 Wake on LAN Driver Patch](https://github.com/yosefrow/MAAS-WoL-driver)
