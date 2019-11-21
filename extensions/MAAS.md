@@ -78,7 +78,9 @@ Custom Box hinzufügen
 
     maas $profile boot-resources create name=custom/$imagedisplayname architecture=amd64/generic content=@$tgzfilepath    
     
-### Customising Installationsscript
+### Customising 
+
+**Installationsscript**
 
 Datei `/etc/maas/preseeds/curtin_userdata_ubuntu` erstellen und folgendes eintragen:
 
@@ -97,9 +99,42 @@ Datei `/etc/maas/preseeds/curtin_userdata_ubuntu` erstellen und folgendes eintra
 
 Beim Deployen von Ubuntu Images wird zusätzlich das Projekt `lernkube` geclont und Docker installiert. 
 Die `maas` Befehle sind notwendig, dass die VM richtig beendet wird und sauber rebooted.
+
+**Juju**
+
+Installation
+
+    sudo -i
+    snap install juju --classic
+
+MAAS Cloud hinzufügen, dabei ist den Anweisungen zu folgen als API-Endpoint den URL des MAAS UI angeben, z.B. `http://172.16.17.13:5240/MAAS`
+    
+    juju add-cloud
+    
+Crediential eintragen, wie ausgegeben. Dabei ist der API-Key des Users `ubuntu` anzugeben.    
+    
+    juju add-credential tbz5-01
+    
+Testen mit
+    
+    juju credentials
+      
+Neue VM mit 4 GB RAM und 16 GB HD erstellen mit dem Namen juju und taggen mit `juju`.    
+      
+    juju bootstrap --constraints tags=juju tbz5-01 juju
+      
+URL des Juju UIs und Password ausgeben: 
+      
+    juju gui
  
 ***
 ## Installation KVM Hosts 
+
+[![](https://img.youtube.com/vi/jj1M-YyCgD4/0.jpg)](https://www.youtube.com/watch?v=jj1M-YyCgD4)
+
+MAAS Enlistment 
+
+---
 
 Am einfachsten ist es die weiteren Maschinen via Netzwerk (PXE Boot) zu booten und automatisch installieren zu lassen.
 
@@ -213,6 +248,7 @@ Tip: werden vorher im MAAS UI mehrere Pools erstellt, können die VMs über dies
     
 ## Links
 
+* [Bare Metal to Kubernetes-as-a-Service - Part 1](https://www.2stacks.net/blog/bare-metal-to-kubernetes-part-1/)
 * [Bridge KVM](https://askubuntu.com/questions/1054350/netplan-bridge-for-kvm-on-ubuntu-server-18-04-with-static-ips)
 * [Static IP Ubuntu 18](https://linuxconfig.org/how-to-configure-static-ip-address-on-ubuntu-18-04-bionic-beaver-linux)
 * [broadcast-dhcp-discover](https://nmap.org/nsedoc/scripts/broadcast-dhcp-discover.html)
@@ -223,3 +259,4 @@ Tip: werden vorher im MAAS UI mehrere Pools erstellt, können die VMs über dies
 * [Customising MAAS](https://ubuntu.com/blog/customising-maas-installs)
 * [Customising MAAS installs](http://mattjarvis.org.uk/post/customising-maas/)
 * [Ubuntu MAAS 2.2 Wake on LAN Driver Patch](https://github.com/yosefrow/MAAS-WoL-driver)
+* [Custom partitioning with Maas and Curtin](http://caribou.kamikamamak.com/2015/06/26/custom-partitioning-with-maas-and-curtin-2/)
