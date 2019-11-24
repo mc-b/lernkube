@@ -114,6 +114,8 @@ Konfiguration ohne DHCP und unter `ip: -> master:` steht die Erste IP-Adresse ab
 
 Bei einem Cluster wird ein Kubernetes Master und mehrere Worker erzeugt. Diese Umgebung eignet sich zur Demonstration einer Verteilten Umgebung.
 
+Soll ein Cluster auf mehreren physikalischen Maschinen aufgesetzt werden, siehe Projekt [lernmaas](https://github.com/mc-b/lernmaas).
+
 **Voraussetzungen**
 
 Genügend GB RAM für alle VM's, z.B. können bei einem 32 GB RAM System ca. 7 VM's à 4 GB RAM eingerichtet werden.

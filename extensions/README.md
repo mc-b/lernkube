@@ -1,11 +1,12 @@
 Erweiterungen
 -------------
 
-Lose Sammlung von Erweiterungen. 
+Lose Sammlung von Erweiterungen.
 
-**Alles nur grob Getestet!**
+* [Aufsetzen eines Kubernetes Cluster auf mehreren physikalischen Maschinen](https://github.com/mc-b/lernmaas) 
+
+**Nur grob Getestet!**
 
 * [KVM](KVM.md)
-* [MAAS](MAAS.md)
 * [WireGuard](WireGuard.md)
  
