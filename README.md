@@ -78,6 +78,7 @@ Oder die gleiche Umgebung wie mit lernkube auf den Cloud Plattformen von Amazon 
 
 * [Amazon AWS Cloud](aws/) - hat noch Probleme mit Datenspeicherung und LoadBalancer.
 * [Microsoft Azure Cloud](azure/)
+* [NFS - statt /data auf VM](nfs/)
 
 #### Mehrere VMs
 
