@@ -3,4 +3,5 @@
 # 	Aufraeumen
 #
 
-umount /vagrant
+sudo rm -f /home/vagrant/docker*.deb
+# umount /vagrant

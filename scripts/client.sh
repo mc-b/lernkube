@@ -81,15 +81,9 @@ unix2dos $OUT/kubeps.bat
 # kubesh.bat	
 cat >$OUT/kubesh.bat <<%EOF%
 @ECHO OFF
-REM Setzt die Docker Umgebungsvariablen und startet Git/Bash 
+REM Wechselt in die VM mittels ssh 
 cd /d %~d0%~p0
-set DOCKER_HOST=tcp://$(hostname -I | cut -d ' ' -f 2):2376
-set DOCKER_TLS_VERIFY=1
-set DOCKER_CERT_PATH=%~d0%~p0.docker
-set PATH=%PATH%;%~d0%~p0bin
-set KUBECONFIG=%~d0%~p0.kube\\config
-$(info)  
-start bash.exe   
+start vagrant ssh master-01   
 %EOF%
 unix2dos $OUT/kubesh.bat	
 
