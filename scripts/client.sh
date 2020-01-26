@@ -52,6 +52,12 @@ cp -rp $HOME/.kube $OUT/
 cat >$OUT/dashboard.bat <<%EOF%
 @ECHO OFF
 REM Startet den Browser mit der Dashboard Startseite und den Proxy 
+echo ============= Dashboard - port-forward to 8001 =====================
+echo VM: $(hostname), Cluster-IP: $(hostname -I | cut -d ' ' -f 2)
+echo ""
+echo Dashboard, login mit:
+echo $(kubectl -n kube-system describe secret  $(kubectl -n kube-system get secret | grep kubernetes-dashboard-token | awk ' { print $1 }' ) | grep token:)
+echo ====================================================================
 cd /d %~d0%~p0
 set DOCKER_HOST=tcp://$(hostname -I | cut -d ' ' -f 2):2376
 set DOCKER_TLS_VERIFY=1
@@ -62,6 +68,24 @@ start http://localhost:8001/api/v1/namespaces/kube-system/services/https:kuberne
 kubectl proxy     
 %EOF%
 unix2dos $OUT/dashboard.bat
+
+# Weave.bat
+cat >$OUT/weave.bat <<%EOF%
+@ECHO OFF
+REM Startet die Weave Oberflaeche 
+echo ============= Weave Scope - port-forward to 4040 ===================
+echo VM: $(hostname), Cluster-IP: $(hostname -I | cut -d ' ' -f 2)
+echo ====================================================================
+cd /d %~d0%~p0
+set DOCKER_HOST=tcp://$(hostname -I | cut -d ' ' -f 2):2376
+set DOCKER_TLS_VERIFY=1
+set DOCKER_CERT_PATH=%~d0%~p0.docker
+set PATH=%PATH%;%~d0%~p0bin
+set KUBECONFIG=%~d0%~p0.kube\\config
+start http://localhost:4040
+kubectl port-forward -n weave $(kubectl get -n weave pod --selector=weave-scope-component=app -o jsonpath='{.items..metadata.name}') 4040 &
+%EOF%
+unix2dos $OUT/weave.bat
 
 # kubeps.bat	
 cat >$OUT/kubeps.bat <<%EOF%
