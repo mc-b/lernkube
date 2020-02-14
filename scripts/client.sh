@@ -10,7 +10,7 @@ echo "===================================================================="
 echo "VM: $(hostname), Cluster-IP: $(hostname -I | cut -d ' ' -f 2)"
 echo ""
 echo "dashboard - Aufruf Dashboard, Login mit"
-echo "$(kubectl -n kube-system describe secret  $(kubectl -n kube-system get secret | grep kubernetes-dashboard-token | awk ' { print $1 }' ) | grep token:)"
+echo "$(kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}') | grep token:)"
 echo "weave - Aufruf Weave ein Werkzeug zur grafischen Visualisierung der Container"
 echo ""
 echo "kubectl apply -f YAML-Datei - Service, laut YAML-Datei, starten bzw. aktualisieren"
@@ -56,7 +56,7 @@ echo ============= Dashboard - port-forward to 8001 =====================
 echo VM: $(hostname), Cluster-IP: $(hostname -I | cut -d ' ' -f 2)
 echo ""
 echo Dashboard, login mit:
-echo $(kubectl -n kube-system describe secret  $(kubectl -n kube-system get secret | grep kubernetes-dashboard-token | awk ' { print $1 }' ) | grep token:)
+echo $(kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}') | grep token:)
 echo ====================================================================
 cd /d %~d0%~p0
 set DOCKER_HOST=tcp://$(hostname -I | cut -d ' ' -f 2):2376
@@ -64,7 +64,7 @@ set DOCKER_TLS_VERIFY=1
 set DOCKER_CERT_PATH=%~d0%~p0.docker
 set PATH=%PATH%;%~d0%~p0bin
 set KUBECONFIG=%~d0%~p0.kube\\config
-start http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/. /B
+start http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/ /B
 kubectl proxy     
 %EOF%
 unix2dos $OUT/dashboard.bat
@@ -127,10 +127,8 @@ $(info)
 chmod +x $OUT/bin/*
 
 # kubectl CLI
-curl -s -L https://storage.googleapis.com/kubernetes-release/release/v1.15.1/bin/windows/amd64/kubectl.exe -o $OUT/bin/kubectl.exe
+curl -s -L https://storage.googleapis.com/kubernetes-release/release/v1.16.7/bin/windows/amd64/kubectl.exe -o $OUT/bin/kubectl.exe
 # docker CLI
 ( cd $OUT/bin/ && curl -s -L https://download.docker.com/win/static/stable/x86_64/docker-17.09.0-ce.zip | bsdtar xvf - && mv docker/docker.exe . && rm -rf docker)
 # helm CLI
-( cd $OUT/bin/ && curl -s -L https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-rc.3-windows-amd64.zip | bsdtar xvf - && mv windows-amd64/helm.exe . && rm -rf windows-amd64)
-# kubeless
-( cd $OUT/bin/ && curl -s -L https://github.com/kubeless/kubeless/releases/download/v1.0.0/kubeless_windows-amd64.zip | bsdtar xvf - && mv bundles/kubeless_windows-amd64/kubeless.exe . && rm -rf bundles)
+( cd $OUT/bin/ && curl -s -L https://get.helm.sh/helm-v3.1.0-windows-amd64.zip | bsdtar xvf - && mv windows-amd64/helm.exe . && rm -rf windows-amd64)

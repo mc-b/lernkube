@@ -11,7 +11,7 @@ worker:
   memory: 0
   hostname: worker  
 k8s:
-  version:  1.15.1-00
+  version:  1.16.7-00
 use_dhcp: false    
 ip:
   master:   192.168.60.100

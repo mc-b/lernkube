@@ -3,18 +3,18 @@
 master:
   count: 1
   cpus: 2
-  memory: 2048
+  memory: 4096
   hostname: master
   dnsname: master.k8s.local
 # Einstellungen Worker: Anzahl Worker Nodes, Anzahl CPU's und reservierter Arbeitsspeicher und Hostname Prefix. count: 0 erstellt keine Worker Nodes
 worker:
   count: 0
   cpus: 2
-  memory: 2048
+  memory: 4096
   hostname: worker
 # Kubernetes Einstellungen, u.a. aktuelle Version
 k8s:
-  version: 1.15.1-00 
+  version: 1.16.7-00
 # Einstellung ob DHCP zur Festlegung der IP-Adresse verwendet werden soll. Wenn true wird ein Public (bridged) Netzwerk verwendet und ip: und net: Eintraege ignoriert. 
 use_dhcp: false  
 # Fixe IP Adressen mit welchen die IP fuer Master und Worker beginnen sollen

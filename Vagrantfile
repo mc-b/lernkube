@@ -10,7 +10,7 @@ x = YAML.load_file('config.yaml')
 Vagrant.configure(2) do |config|
 
    # Ubuntu 16.04 - Ubuntu 18.x gibt Probleme mit dind.
-   config.vm.box = "ubuntu/xenial64"
+   config.vm.box = "ubuntu/bionic64"
 
    # resize hd, need a plugin vagrant-disksize, see https://github.com/sprotheroe/vagrant-disksize
    config.disksize.size = '40GB'
