@@ -1,7 +1,7 @@
 Konfigurationsdateien
 ---------------------
 
-Plathalter für Dateien welche beim Erstellen der VM zusätzliche Installationen oder weitere Konfigurationen anfügen.
+Platzhalter für Dateien welche beim Erstellen der VM zusätzliche Installationen oder weitere Konfigurationen anfügen.
 
 Unterstützt werden:
 * `wg0.conf`: WireGuard wird installiert und gestartet
