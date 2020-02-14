@@ -47,6 +47,7 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/data/01"  
+  persistentVolumeReclaimPolicy: Recycle  
 ---
 kind: PersistentVolume
 apiVersion: v1
@@ -62,6 +63,7 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/data/02" 
+  persistentVolumeReclaimPolicy: Recycle  
 ---
 kind: PersistentVolume
 apiVersion: v1
@@ -77,6 +79,7 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/data/03" 
+  persistentVolumeReclaimPolicy: Recycle  
 ---
 kind: PersistentVolume
 apiVersion: v1
@@ -92,6 +95,7 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/data/04"
+  persistentVolumeReclaimPolicy: Recycle  
 ---
 kind: PersistentVolume
 apiVersion: v1
@@ -107,4 +111,5 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/data/05"                         
-      
+  persistentVolumeReclaimPolicy: Recycle  
+
