@@ -29,4 +29,4 @@ addons:
   # docker, k8s-API, gogs, kanboard, jeninks, Microservices (4x), jupyter (3x), Kubernetes Ingress, docker registry / frontend, nexus3 (repository, docker-group, docker-proxy), mosquitto, Istio  
   ports: [ 2376, 6443, 32100, 32200, 32300, 32080, 32090, 32180, 32280, 32088, 32188, 32288, 30443, 32500, 32580, 32511, 32512, 32513, 31883, 31380]
   # Repositories mit weiteren Scripts, YAML Dateien etc.
-  git: [ "https://github.com/mc-b/misegr.git", "https://github.com/mc-b/duk.git", "https://github.com/mc-b/mlg.git", "https://github.com/mc-b/duk-demo.git" ]
+  git: [ "https://github.com/mc-b/misegr.git", "https://github.com/mc-b/duk.git", "https://github.com/mc-b/duk-demo.git" ]
