@@ -83,7 +83,10 @@ StartLimitInterval=60s
 WantedBy=multi-user.target
 %EOF%
 
-    sudo rm /vagrant/csr/*.csr /vagrant/csr/*.pem /vagrant/csr/docker-server-csr.json
+sudo rm /vagrant/csr/*.csr /vagrant/csr/*.pem /vagrant/csr/docker-server-csr.json
 
-    sudo systemctl daemon-reload
-    sudo systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+    
+# Socket freischalten z.B. fuer Jenkins
+sudo chmod o=g /var/run/docker.sock
