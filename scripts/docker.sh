@@ -24,3 +24,6 @@ then
 fi
 
 sudo docker image ls
+
+# Hack: Docker fuer Jenkins freischalten
+sudo chmod o+rw /var/run/docker.sock
