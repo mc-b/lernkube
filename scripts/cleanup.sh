@@ -7,6 +7,7 @@ sudo rm -f /home/vagrant/docker*.deb
 
 mkdir -p /vagrant/cr-cache
 
+docker image prune -f
 for i in $(docker images | cut -d ' ' -f 1 | grep -v REPOSITORY)
 do
     OUT="/vagrant/cr-cache/$(echo ${i} | tr / _).tar"
