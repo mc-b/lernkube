@@ -14,7 +14,7 @@ spec:
     - hard
     - nfsvers=4.1
   nfs:
-    path: /data
+    path: /data/storage/k8s
     server: 192.168.2.10
 ---
 kind: PersistentVolumeClaim
