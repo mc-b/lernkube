@@ -14,7 +14,7 @@ worker:
   hostname: worker  
 # Kubernetes Einstellungen, u.a. aktuelle Version
 k8s:
-  version:  1.16.7-00  
+  version:  1.19.2-00  
 # Einstellung ob DHCP zur Festlegung der IP-Adresse verwendet werden soll. Wenn true wird ein Public (bridged) Netzwerk verwendet und ip: und net: Eintraege ignoriert. 
 use_dhcp: false  
 # Fixe IP Adressen mit welchen die IP fuer Master und Worker beginnen sollen
