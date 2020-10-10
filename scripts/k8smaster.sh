@@ -34,3 +34,8 @@ chown -R vagrant:vagrant /home/vagrant/.kube
 # Install ingress bare metal, https://kubernetes.github.io/ingress-nginx/deploy/
 kubectl apply -f /vagrant/addons/ingress-mandatory.yaml
 kubectl apply -f /vagrant/addons/service-nodeport.yaml
+
+##########################
+# Package Manager (HELM - Achtung bei Versionwechsel auch client.sh aendern).
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
