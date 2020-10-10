@@ -7,6 +7,10 @@
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.4/aio/deploy/recommended.yaml
 kubectl apply -f /vagrant/addons/dashboard-admin.yaml
 
+# Metrics Server fuer Dashboard, Horizontal Pods Autoscaler etc.
+kubectl create namespace metrics
+helm install metrics-server stable/metrics-server --namespace metrics --set args={"--kubelet-insecure-tls=true,--kubelet-preferred-address-types=InternalIP\,Hostname\,ExternalIP"}
+
 # Standard Persistent Volume und Claim
 kubectl create -f /vagrant/data/
 	
