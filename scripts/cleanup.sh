@@ -3,16 +3,22 @@
 # 	Aufraeumen
 #
 
-sudo rm -f /home/vagrant/docker*.deb
+# nur wenn docker installiert
+which docker
+if [ $? -eq 0 ]
+then
 
-mkdir -p /vagrant/cr-cache
+    sudo rm -f /home/vagrant/docker*.deb
 
-docker image prune -f
-for i in $(docker images | cut -d ' ' -f 1 | grep -v REPOSITORY)
-do
-    OUT="/vagrant/cr-cache/$(echo ${i} | tr / _).tar"
-    [ ! -f ${OUT} ] && { echo "save image ${i} to ${OUT}"; docker save ${i} -o ${OUT}; }
-done
+    mkdir -p /vagrant/cr-cache
+
+    docker image prune -f
+    for i in $(docker images | cut -d ' ' -f 1 | grep -v REPOSITORY)
+    do
+        OUT="/vagrant/cr-cache/$(echo ${i} | tr / _).tar"
+        [ ! -f ${OUT} ] && { echo "save image ${i} to ${OUT}"; docker save ${i} -o ${OUT}; }
+    done
+fi
 
 # umount /vagrant
 
