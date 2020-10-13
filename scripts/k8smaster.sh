@@ -2,8 +2,12 @@
 #
 #   Kubernetes Master Installation
 #
-
-sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address  $(hostname -I | cut -d ' ' -f 2) --apiserver-cert-extra-sans $1
+if [ -f /vagrant/kubeadm.yaml ]
+then
+    sudo kubeadm init --config /vagrant/kubeadm.yaml
+else
+    sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address  $(hostname -I | cut -d ' ' -f 2) --apiserver-cert-extra-sans $1
+fi    
 
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -24,6 +28,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 # Internes Pods Netzwerk (mit: --iface enp0s8, weil vagrant bei Hostonly Adapters gleiche IP vergibt)
 sysctl net.bridge.bridge-nf-call-iptables=1
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
+# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 kubectl apply -f /vagrant/addons/kube-flannel.yaml
 
 

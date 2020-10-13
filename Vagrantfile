@@ -53,6 +53,7 @@ Vagrant.configure(2) do |config|
       
       # Installation
       # worker.vm.provision "shell", path: "scripts/containerd.sh"
+      # worker.vm.provision "shell", path: "scripts/cri-o.sh", args: [ x.fetch('k8s').fetch('version'), "xUbuntu_18.04", x.fetch('master').fetch('dnsname') ]
       worker.vm.provision "shell", path: "scripts/docker.sh"
       worker.vm.provision "shell", path: "scripts/k8sbase.sh", args: [ x.fetch('k8s').fetch('version') ]
       worker.vm.provision "shell", path: "scripts/sshworker.sh"
@@ -94,7 +95,7 @@ Vagrant.configure(2) do |config|
       
       # Installation
       # master.vm.provision "shell", path: "scripts/containerd.sh"
-      # master.vm.provision "shell", path: "scripts/cri-o.sh", args: [ x.fetch('k8s').fetch('version'), "xUbuntu_18.04" ]
+      # master.vm.provision "shell", path: "scripts/cri-o.sh", args: [ x.fetch('k8s').fetch('version'), "xUbuntu_18.04", x.fetch('master').fetch('dnsname') ]
       master.vm.provision "shell", path: "scripts/docker.sh"
       master.vm.provision "shell", path: "scripts/dockercert.sh", args: [ x.fetch('master').fetch('dnsname') ]
       master.vm.provision "shell", path: "scripts/k8sbase.sh", args: [ x.fetch('k8s').fetch('version') ]
