@@ -18,7 +18,7 @@ echo "===================================================================="
 %EOF%
 }
 
-sudo apt-get install -q 2 -y dos2unix bsdtar
+sudo apt-get install -q 2 -y dos2unix libarchive-tools
 
 # wenn nur 1 Master Scripts in /vagrant ablegen
 if	[ $1 -eq 1 ]
