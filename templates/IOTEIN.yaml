@@ -26,7 +26,7 @@ net:
   network_type: private_network
   default_router: ""  
 addons:
-  # docker, k8s-API, gogs, kanboard, jenkins, eclipse-theia,, Microservices (4x), jupyter (3x), Kubernetes Ingress, docker registry / frontend, mosquitto  
-  ports: [ 2376, 6443, 32100, 32200, 32300, 32400, 32080, 32090, 32180, 32280, 32088, 32188, 32288, 30443, 32500, 32580, 31883]
+  # docker, k8s-API, gogs, kanboard, jenkins, eclipse-theia,, Microservices (4x), jupyter (3x), Kubernetes Ingress, docker registry / frontend, mosquitto, node-red-kafka  
+  ports: [ 2376, 6443, 32100, 32200, 32300, 32400, 32080, 32090, 32180, 32280, 32088, 32188, 32288, 30443, 30880, 32500, 32580, 31883, 32600 ]
   # Repositories mit weiteren Scripts, YAML Dateien etc.
-  git: [ "https://github.com/mc-b/misegr.git", "https://github.com/mc-b/duk.git", "https://github.com/mc-b/mlg.git", "https://github.com/mc-b/iot.kafka.git" ]
+  git: [ "https://github.com/mc-b/misegr.git", "https://github.com/mc-b/duk.git", "https://github.com/mc-b/mlg.git", "https://github.com/mc-b/modtec.git" ]
