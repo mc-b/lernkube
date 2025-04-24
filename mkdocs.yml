@@ -1,0 +1,4 @@
+site_name: lernkube
+docs_dir: .
+nav:
+- README: README.md

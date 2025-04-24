@@ -1,0 +1,23 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: lernkube
+  namespace: mc-b
+  description: Kubernetes Umgebung für die Ausbildung an Berufsschulen im Bereich
+    Informatik
+  tags:
+  - lernkube
+  - tbz
+  - kubernetes
+  links:
+  - url: https://github.com/mc-b/lernkube
+    title: Repository
+    icon: github
+  annotations:
+    github.com/project-slug: mc-b/lernkube
+    backstage.io/source-location: url:https://github.com/mc-b/lernkube
+    # backstage.io/techdocs-ref: url:https://github.com/mc-b/lernkube
+spec:
+  type: infrastructure
+  lifecycle: deprecated
+  owner: group:mc-b/mc-b
