@@ -18,6 +18,6 @@ metadata:
     backstage.io/source-location: url:https://github.com/mc-b/lernkube
     # backstage.io/techdocs-ref: url:https://github.com/mc-b/lernkube
 spec:
-  type: infrastructure
+  type: website
   lifecycle: deprecated
   owner: group:mc-b/mc-b
